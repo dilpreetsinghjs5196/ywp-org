@@ -27,15 +27,15 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide">
                 <div class="image-layer"
-                    style="background-image: url({{ asset('images/slider-main-1.jpg') }});">
+                    style="background-image: url({{ asset($contents['hero']['slide1_image'] ?? 'images/slider-main-1.jpg') }});">
                 </div>
                 <!-- /.image-layer -->
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-7">
                             <div class="main-slider__content">
-                                <h2>Lend a <br> Helping Hand <br> & get involved.</h2>
-                                <p>We are here to support you every step of the way</p>
+                                <h2>{!! $contents['hero']['slide1_title'] ?? 'Lend a <br> Helping Hand <br> & get involved.' !!}</h2>
+                                <p>{{ $contents['hero']['slide1_subtitle'] ?? 'We are here to support you every step of the way' }}</p>
                                 <a href="{{ url('contact') }}" class="thm-btn">Discover More</a>
                                 <div class="main-slider-shape-1"><img
                                         src="{{ asset('assets/images/shapes/main-slider-shape-1.png') }}" class="float-bob-x"
@@ -47,15 +47,15 @@
             </div>
             <div class="swiper-slide">
                 <div class="image-layer"
-                    style="background-image: url({{ asset('images/slider-main-2.jpg') }});">
+                    style="background-image: url({{ asset($contents['hero']['slide2_image'] ?? 'images/slider-main-2.jpg') }});">
                 </div>
                 <!-- /.image-layer -->
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-7">
                             <div class="main-slider__content">
-                                <h2>SPEAK Campaign</h2>
-                                <p>We are here to support you every step of the way</p>
+                                <h2>{!! $contents['hero']['slide2_title'] ?? 'SPEAK Campaign' !!}</h2>
+                                <p>{{ $contents['hero']['slide2_subtitle'] ?? 'We are here to support you every step of the way' }}</p>
                                 <a href="{{ url('contact') }}" class="thm-btn">Discover More</a>
                                 <div class="main-slider-shape-1"><img
                                         src="{{ asset('assets/images/shapes/main-slider-shape-1.png') }}" class="float-bob-x"
@@ -67,15 +67,15 @@
             </div>
             <div class="swiper-slide">
                 <div class="image-layer"
-                    style="background-image: url({{ asset('images/slider-main-3.jpg') }});">
+                    style="background-image: url({{ asset($contents['hero']['slide3_image'] ?? 'images/slider-main-3.jpg') }});">
                 </div>
                 <!-- /.image-layer -->
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-7">
                             <div class="main-slider__content">
-                                <h2>Wonder Store</h2>
-                                <p>We are here to support you every step of the way</p>
+                                <h2>{!! $contents['hero']['slide3_title'] ?? 'Wonder Store' !!}</h2>
+                                <p>{{ $contents['hero']['slide3_subtitle'] ?? 'We are here to support you every step of the way' }}</p>
                                 <a href="{{ url('contact') }}" class="thm-btn">Discover More</a>
                                 <div class="main-slider-shape-1"><img
                                         src="{{ asset('assets/images/shapes/main-slider-shape-1.png') }}" class="float-bob-x"
@@ -105,8 +105,8 @@
     <div class="we-believe-map" style="background-image: url({{ asset('assets/images/shapes/we-believe-map.png') }});"></div>
     <div class="container">
         <div class="section-title text-center">
-            <span class="section-title__tagline">Welcome to YWP;</span>
-            <h2 class="section-title__title">We believe that we can save <br> more lives with you</h2>
+            <span class="section-title__tagline">{{ $contents['we_believe']['tagline'] ?? 'Welcome to YWP;' }}</span>
+            <h2 class="section-title__title">{!! $contents['we_believe']['title'] ?? 'We believe that we can save <br> more lives with you' !!}</h2>
         </div>
         <div class="row">
             <div class="col-xl-12">
