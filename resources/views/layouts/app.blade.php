@@ -5,18 +5,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title', 'YWP | You’re Wonderful Project:')</title>
+    <style>
+        .footer-donate__btn-dynamic {
+            background-color: #ff4c1e !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .footer-donate__btn-dynamic:hover {
+            background-color: #fff !important;
+        }
+
+        .footer-donate__btn-dynamic .support-text {
+            color: #fff !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .footer-donate__btn-dynamic:hover .support-text {
+            color: #1a1a1a !important;
+        }
+
+        .footer-donate__btn-dynamic .support-circle {
+            background-color: #fff !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .footer-donate__btn-dynamic:hover .support-circle {
+            background-color: #ff4c1e !important;
+        }
+
+        .footer-donate__btn-dynamic .fa-heart {
+            color: #ff4c1e !important;
+            transition: all 0.3s ease !important;
+            line-height: 1 !important;
+            margin: 0 !important;
+            font-size: 18px !important;
+        }
+
+        .footer-donate__btn-dynamic:hover .fa-heart {
+            color: #fff !important;
+        }
+    </style>
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/ymp-logo.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/ymp-logo.png') }}" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/ymp-logo.png') }}" />
     <link rel="manifest" href="{{ asset('assets/images/favicons/site.webmanifest') }}" />
-    <meta name="description" content="You’re Wonderful Project;"/>
+    <meta name="description" content="You’re Wonderful Project;" />
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;family=Fredoka+One&amp;display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;family=Fredoka+One&amp;display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendors/animate/animate.min.css') }}" />
@@ -57,11 +102,15 @@
                 <div class="main-header__top-left">
                     <p class="main-header__top-text">Welcome to You’re Wonderful Project;</p>
                     <div class="main-header__top-social">
-                        <a href="https://www.facebook.com/yourewonderfulproject" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.facebook.com/yourewonderfulproject" target="_blank"><i
+                                class="fab fa-facebook"></i></a>
                         <a href="https://twitter.com/YWPIndia" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://m.youtube.com/c/YoureWonderfulProject" target="_blank"><i class="fab fa-youtube"></i></a>
-                        <a href="https://instagram.com/yourewonderfulproject?utm_medium=copy_link" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/company/ywpindia" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://m.youtube.com/c/YoureWonderfulProject" target="_blank"><i
+                                class="fab fa-youtube"></i></a>
+                        <a href="https://instagram.com/yourewonderfulproject?utm_medium=copy_link" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/ywpindia" target="_blank"><i
+                                class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="main-header__top-right">
@@ -79,7 +128,8 @@
                                 <span class="icon-email"></span>
                             </div>
                             <div class="text">
-                                <p><a href="mailto:info@yourewonderfulproject.org">info@yourewonderfulproject.org</a></p>
+                                <p><a href="mailto:info@yourewonderfulproject.org">info@yourewonderfulproject.org</a>
+                                </p>
                             </div>
                         </li>
                     </ul>
@@ -89,7 +139,8 @@
                 <div class="main-menu-wrapper clearfix">
                     <div class="main-menu-wrapper__left">
                         <div class="main-menu-wrapper__logo">
-                             <a href="{{ url('/') }}"><img src="{{ asset('images/loader.png') }}" alt="" height="100px" width="59px"></a>
+                            <a href="{{ url('/') }}"><img src="{{ asset('images/loader.png') }}" alt="" height="100px"
+                                    width="59px"></a>
                         </div>
                         <div class="main-menu-wrapper__call">
                             <div class="main-menu-wrapper__call-icon">
@@ -109,59 +160,62 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#">About</a>
-                                 <ul>
-                                    <li><a href="{{ url('our-mission') }}" >Our Mission</a></li>
-                                    <li><a href="{{ url('history') }}" >History</a></li>
-                                    <li><a href="{{ url('advisory-board') }}" >Advisory Board</a></li>
-                                    <li><a href="{{ url('on-board-professionals') }}" >On-Board Professionals</a></li>
-                                    <li><a href="{{ url('gallery') }}" >Gallery</a></li>
-                                    <li><a href="{{ url('faq') }}" >FAQs</a></li>
+                                <ul>
+                                    <li><a href="{{ url('our-mission') }}">Our Mission</a></li>
+                                    <li><a href="{{ url('history') }}">History</a></li>
+                                    <li><a href="{{ url('advisory-board') }}">Advisory Board</a></li>
+                                    <li><a href="{{ url('on-board-professionals') }}">On-Board Professionals</a></li>
+                                    <li><a href="{{ url('gallery') }}">Gallery</a></li>
+                                    <li><a href="{{ url('faq') }}">FAQs</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#">Documents</a>
-                                 <ul>
-                                    <li><a href="{{ url('reports') }}" >Research Papers</a></li>
-                                    <li><a href="{{ url('policies') }}" >Policies</a></li>
-                                    <li><a href="{{ url('report') }}" >Reports</a></li>
+                                <ul>
+                                    <li><a href="{{ url('reports') }}">Research Papers</a></li>
+                                    <li><a href="{{ url('policies') }}">Policies</a></li>
+                                    <li><a href="{{ url('report') }}">Reports</a></li>
                                 </ul>
                             </li>
-                             <li class="dropdown">
-                                <a href="{{ url('team') }}" >Team</a>
+                            <li class="dropdown">
+                                <a href="{{ url('team') }}">Team</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#">Initiatives</a>
-                                 <ul>
-                                    <li><a href="{{ url('campaigns') }}" >Campaigns</a></li>
-                                    <li><a href="{{ url('events') }}" >Events</a></li>
-                                    <li><a href="{{ url('training') }}" >Trainings</a></li>
+                                <ul>
+                                    <li><a href="{{ url('campaigns') }}">Campaigns</a></li>
+                                    <li><a href="{{ url('events') }}">Events</a></li>
+                                    <li><a href="{{ url('training') }}">Trainings</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a href="{{ url('blog') }}" >Blog</a>
+                                <a href="{{ url('blog') }}">Blog</a>
                             </li>
                             <li class="dropdown"><a href="#">Connect</a>
                                 <ul>
-                                 <li><a href="{{ url('work-with-ywp') }}" >Work with YWP</a></li>
-                                 <li><a href="{{ url('contact') }}">Contact Us</a></li>
+                                    <li><a href="{{ url('work-with-ywp') }}">Work with YWP</a></li>
+                                    <li><a href="{{ url('contact') }}">Contact Us</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="#">Donate</a>
-                                 <ul>
-                                    <li><a href="https://pages.razorpay.com/contributetoywp/" target="_blank">One-time Donation</a></li>
-                                    <li><a href="https://yourewonderfulproject.org/pledge" target="_blank">Pledge for YWP</a></li>
+                                <ul>
+                                    <li><a href="https://pages.razorpay.com/contributetoywp/" target="_blank">One-time
+                                            Donation</a></li>
+                                    <li><a href="https://yourewonderfulproject.org/pledge" target="_blank">Pledge for
+                                            YWP</a></li>
                                 </ul>
                             </li>
-                           <li class="dropdown">
-                                <a href="{{ url('wonderstore') }}" >Wonder Store</a>
+                            <li class="dropdown">
+                                <a href="{{ url('wonderstore') }}">Wonder Store</a>
                             </li>
                         </ul>
                     </div>
                     <div class="main-menu-wrapper__right">
                         <div class="main-menu-wrapper__search-cat">
                         </div>
-                        <a href="https://pledge.yourewonderfulproject.org/" class="donate-btn main-menu-wrapper__btn" target="_blank"> <i class="fa fa-heart"></i>
+                        <a href="https://pledge.yourewonderfulproject.org/" class="donate-btn main-menu-wrapper__btn"
+                            target="_blank"> <i class="fa fa-heart"></i>
                             Donate Now</a>
                     </div>
                 </div>
@@ -176,7 +230,8 @@
 
         <!--Site Footer Start-->
         <footer class="site-footer">
-            <div class="site-footer-bg" style="background-image: url({{ asset('assets/images/backgrounds/site-footer-bg.jpg') }});">
+            <div class="site-footer-bg"
+                style="background-image: url({{ asset('assets/images/backgrounds/site-footer-bg.jpg') }});">
             </div>
             <div class="site-footer__top">
                 <div class="container">
@@ -184,19 +239,31 @@
                         <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="100ms">
                             <div class="footer-widget__column footer-widget__about">
                                 <div class="footer-widget__about-text-box">
-                                    <p class="footer-widget__about-text" style="font-size:24px;">Donate towards better mental health</p>
+                                    <p class="footer-widget__about-text" style="font-size:24px;">Donate towards better
+                                        mental health</p>
                                 </div>
-                                <a href="mailto:peersupport@yourewonderfulproject.org" class="donate-btn footer-donate__btn" target="_blank"> <i class="fa fa-heart"></i> Get Support</a>
+                                <a href="mailto:peersupport@yourewonderfulproject.org"
+                                    class="donate-btn footer-donate__btn footer-donate__btn-dynamic" target="_blank"
+                                    style="text-transform: uppercase; display: inline-flex; align-items: center; padding: 6px 25px 6px 6px; border-radius: 50px !important; border: none; text-decoration: none;">
+                                    <div class="support-circle"
+                                        style="border-radius: 50%; width: 40px; height: 40px; margin-right: 15px; flex-shrink: 0; display: block !important; text-align: center !important; line-height: 40px !important; background-color: #fff;">
+                                        <i class="fa fa-heart"
+                                            style="line-height: 40px !important; margin: 0 !important; font-size: 18px !important;"></i>
+                                    </div>
+                                    <span class="support-text"
+                                        style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px; padding-right: 10px;">GET
+                                        SUPPORT</span>
+                                </a>
                             </div>
                         </div>
                         <div class="col-xl-2 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="200ms">
                             <div class="footer-widget__column footer-widget__links clearfix">
                                 <h3 class="footer-widget__title">About</h3>
                                 <ul class="footer-widget__links-list list-unstyled clearfix">
-                                    <li><a href="{{ url('our-mission') }}" >Our Mission</a></li>
-                                    <li><a href="{{ url('history') }}" >History</a></li>
-                                    <li><a href="{{ url('advisory-board') }}" >Advisory Board</a></li>
-                                    <li><a href="{{ url('reports') }}" >Research Papers</a></li>
+                                    <li><a href="{{ url('our-mission') }}">Our Mission</a></li>
+                                    <li><a href="{{ url('history') }}">History</a></li>
+                                    <li><a href="{{ url('advisory-board') }}">Advisory Board</a></li>
+                                    <li><a href="{{ url('reports') }}">Research Papers</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -205,13 +272,13 @@
                                 <h3 class="footer-widget__title">Information</h3>
                                 <ul class="footer-widget__non-profit-list list-unstyled clearfix">
                                     <li><a href="{{ url('team') }}">Team</a></li>
-                                    <li><a href="{{ url('campaigns') }}" >Campaigns</a></li>
-                                    <li><a href="{{ url('blog') }}" >Blog</a></li>
+                                    <li><a href="{{ url('campaigns') }}">Campaigns</a></li>
+                                    <li><a href="{{ url('blog') }}">Blog</a></li>
                                     <li><a href="{{ url('work-with-ywp') }}">Work with YWP</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-xl-2 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
+                        <div class="col-xl-1 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="300ms">
                             <div class="footer-widget__column footer-widget__non-profit clearfix">
                                 <h3 class="footer-widget__title">Connect</h3>
                                 <ul class="footer-widget__non-profit-list list-unstyled clearfix">
@@ -221,7 +288,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
+                        <div class="col-xl-4 col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="400ms">
                             <div class="footer-widget__column footer-widget__contact clearfix">
                                 <h3 class="footer-widget__title">Contact</h3>
                                 <ul class="list-unstyled footer-widget__contact-list">
@@ -230,11 +297,12 @@
                                             <span class="icon-email"></span>
                                         </div>
                                         <div class="text">
-                                            <a href="mailto:info@yourewonderfulproject.org">info@yourewonderfulproject.org</a>
+                                            <a
+                                                href="mailto:info@yourewonderfulproject.org">info@yourewonderfulproject.org</a>
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="icon">
+                                        <div class="icon" style="padding-top:10px;">
                                             <span class="icon-telephone"></span>
                                         </div>
                                         <div class="text">
@@ -246,7 +314,8 @@
                                             <span class="icon-pin"></span>
                                         </div>
                                         <div class="text">
-                                            <p>1, 22, Asaf Ali Rd, Kucha Pati Ram, Ajmeri Gate, New Delhi, Delhi 110002</p>
+                                            <p>1, 22, Asaf Ali Rd, Kucha Pati Ram, Ajmeri Gate, New Delhi, Delhi 110002
+                                            </p>
                                         </div>
                                     </li>
                                 </ul>
@@ -260,14 +329,20 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="site-footer__bottom-inner">
-                                <p class="site-footer__bottom-text">© Copyright {{ date('Y') }} by <a href="#">YWP; India</a>
+                                <p class="site-footer__bottom-text">© Copyright {{ date('Y') }} by <a href="#">YWP;
+                                        India</a>
                                 </p>
                                 <div class="site-footer__social">
-                                    <a href="https://twitter.com/YWPIndia" target="_blank"><i class="fab fa-twitter"></i></a>
-                                    <a href="https://www.facebook.com/yourewonderfulproject" target="_blank"><i class="fab fa-facebook"></i></a>
-                                    <a href="https://m.youtube.com/c/YoureWonderfulProject" target="_blank"><i class="fab fa-youtube"></i></a>
-                                    <a href="https://instagram.com/yourewonderfulproject?utm_medium=copy_link" target="_blank"><i class="fab fa-instagram"></i></a>
-                                    <a href="https://www.linkedin.com/company/ywpindia#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                    <a href="https://twitter.com/YWPIndia" target="_blank"><i
+                                            class="fab fa-twitter"></i></a>
+                                    <a href="https://www.facebook.com/yourewonderfulproject" target="_blank"><i
+                                            class="fab fa-facebook"></i></a>
+                                    <a href="https://m.youtube.com/c/YoureWonderfulProject" target="_blank"><i
+                                            class="fab fa-youtube"></i></a>
+                                    <a href="https://instagram.com/yourewonderfulproject?utm_medium=copy_link"
+                                        target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a href="https://www.linkedin.com/company/ywpindia#" target="_blank"><i
+                                            class="fab fa-linkedin"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -286,7 +361,8 @@
         <div class="mobile-nav__content">
             <span class="mobile-nav__close mobile-nav__toggler"><i class="fa fa-times"></i></span>
             <div class="logo-box">
-                <a href="{{ url('/') }}" aria-label="logo image"><img src="{{ asset('images/loader.png') }}" alt="" height="100px" width="59px" /></a>
+                <a href="{{ url('/') }}" aria-label="logo image"><img src="{{ asset('images/loader.png') }}" alt=""
+                        height="100px" width="59px" /></a>
             </div>
             <div class="mobile-nav__container"></div>
             <ul class="mobile-nav__contact list-unstyled">
@@ -302,10 +378,14 @@
             <div class="mobile-nav__top">
                 <div class="mobile-nav__social">
                     <a href="https://twitter.com/YWPIndia" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://www.facebook.com/yourewonderfulproject" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://m.youtube.com/c/YoureWonderfulProject" target="_blank"><i class="fab fa-youtube"></i></a>
-                    <a href="https://instagram.com/yourewonderfulproject?utm_medium=copy_link" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/company/ywpindia#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/yourewonderfulproject" target="_blank"><i
+                            class="fab fa-facebook"></i></a>
+                    <a href="https://m.youtube.com/c/YoureWonderfulProject" target="_blank"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://instagram.com/yourewonderfulproject?utm_medium=copy_link" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/company/ywpindia#" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\PageContent;
+use App\Models\Campaign;
 
 class HomeController extends Controller
 {
@@ -17,6 +18,8 @@ class HomeController extends Controller
                 return [$section => $items->pluck('value', 'key')];
             });
 
-        return view('home', compact('contents'));
+        $campaigns = Campaign::all();
+
+        return view('home', compact('contents', 'campaigns'));
     }
 }

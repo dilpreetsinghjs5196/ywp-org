@@ -9,12 +9,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-bg: #0f172a;
-            --sidebar-bg: #1e293b;
+            --primary-bg: #f1f5f9;
+            --sidebar-bg: #0f172a;
+            --sidebar-text: #94a3b8;
+            --sidebar-hover: rgba(255, 255, 255, 0.05);
             --accent-orange: #ff7e3b;
-            --card-glass: rgba(255, 255, 255, 0.05);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #f1f5f9;
+            --btn-hover: #e66a2b;
         }
 
         body {
@@ -30,108 +34,121 @@
             width: 260px;
             height: 100vh;
             background: var(--sidebar-bg);
-            padding: 20px;
+            padding: 24px;
             position: fixed;
             left: 0;
             top: 0;
-            border-right: 1px solid rgba(255,255,255,0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
+            z-index: 1000;
         }
 
         .sidebar-brand {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: var(--accent-orange);
+            color: #ffffff;
             margin-bottom: 40px;
             text-decoration: none;
             display: flex;
             align-items: center;
+            gap: 10px;
         }
 
-        .sidebar-brand img { margin-right: 10px; }
-
         .nav-link {
-            color: var(--text-muted);
-            padding: 12px 15px;
-            border-radius: 10px;
-            margin-bottom: 5px;
-            transition: all 0.3s;
+            color: var(--sidebar-text);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
         }
 
-        .nav-link i { width: 25px; }
+        .nav-link i { 
+            width: 20px; 
+            font-size: 18px;
+            margin-right: 12px;
+            opacity: 0.7;
+        }
 
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255,255,255,0.05);
+        .nav-link:hover {
+            background: var(--sidebar-hover);
+            color: #ffffff;
+        }
+
+        .nav-link.active {
+            background: #ffffff;
             color: var(--accent-orange);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .nav-link.active i {
+            opacity: 1;
         }
 
         /* Content Area */
         .main-content {
             margin-left: 260px;
             flex: 1;
-            padding: 40px;
+            padding: 50px;
             min-height: 100vh;
         }
 
         .glass-card {
-            background: var(--card-glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
         }
 
         .btn-premium {
-            background: linear-gradient(135deg, #ff7e3b, #ff4d00);
+            background: var(--accent-orange);
             border: none;
             color: white;
-            padding: 10px 25px;
+            padding: 12px 28px;
             border-radius: 12px;
             font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn-premium:hover {
+            background: var(--btn-hover);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 126, 59, 0.4);
+            box-shadow: 0 8px 20px rgba(255, 126, 59, 0.25);
             color: white;
         }
 
         .form-control, .form-select {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: #fcfcfc;
+            border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 12px;
-            border-radius: 10px;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 15px;
         }
 
         .form-control:focus {
-            background: rgba(255,255,255,0.05);
+            background: #ffffff;
             border-color: var(--accent-orange);
-            color: var(--text-main);
-            box-shadow: none;
-        }
-
-        .alert-success {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.2);
-            color: #10b981;
-            border-radius: 12px;
+            box-shadow: 0 0 0 4px rgba(255, 126, 59, 0.08);
         }
 
         .section-badge {
-            background: rgba(255,255,255,0.05);
-            padding: 5px 15px;
-            border-radius: 8px;
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 12px;
             font-size: 14px;
             color: var(--text-muted);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            line-height: 1.6;
         }
+
+        h1 { font-weight: 700; letter-spacing: -0.5px; }
     </style>
     @stack('styles')
 </head>
@@ -143,10 +160,10 @@
         </a>
 
         <nav class="flex-grow-1">
-            <a href="{{ route('admin.page-content.index') }}" class="nav-link active">
+            <a href="{{ route('admin.page-content.index') }}" class="nav-link {{ Request::is('admin/page-content*') ? 'active' : '' }}">
                 <i class="fa fa-home"></i> Home Content
             </a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.campaigns.index') }}" class="nav-link {{ Request::is('admin/campaigns*') ? 'active' : '' }}">
                 <i class="fa fa-bullhorn"></i> Campaigns
             </a>
             <a href="#" class="nav-link">
