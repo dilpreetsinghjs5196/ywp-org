@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\PageContent;
 use App\Models\Campaign;
+use App\Models\OnBoardProfessional;
 
 class HomeController extends Controller
 {
@@ -57,5 +58,18 @@ class HomeController extends Controller
             });
 
         return view('advisory-board', compact('contents'));
+    }
+
+    public function professionals()
+    {
+        $contents = PageContent::where('page', 'on-board-professionals')
+            ->get()
+            ->groupBy('section')
+            ->mapWithKeys(function ($items, $section) {
+                return [$section => $items->pluck('value', 'key')];
+            });
+
+        $professionals = OnBoardProfessional::all();
+        return view('on-board-professionals', compact('professionals', 'contents'));
     }
 }
