@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="glass-card">
-    <h1 class="mb-4">Page Content Management</h1>
+    <h1 class="mb-4 text-capitalize">{{ $group ?? 'Home' }} Content Management</h1>
     
     @foreach($sections as $page => $pageSections)
         <div class="mb-5">

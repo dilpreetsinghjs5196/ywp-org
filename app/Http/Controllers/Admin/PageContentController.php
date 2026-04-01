@@ -9,14 +9,21 @@ use App\Models\PageContent;
 
 class PageContentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $sections = PageContent::select('page', 'section')
-            ->distinct()
-            ->get()
-            ->groupBy('page');
+        $group = $request->get('group', 'home');
+        
+        $query = PageContent::select('page', 'section')->distinct();
+        
+        if ($group === 'about') {
+            $query->whereIn('page', ['our-mission', 'history', 'advisory-board', 'on-board-professionals']);
+        } else {
+            $query->where('page', 'home');
+        }
 
-        return view('admin.page-content.index', compact('sections'));
+        $sections = $query->get()->groupBy('page');
+
+        return view('admin.page-content.index', compact('sections', 'group'));
     }
 
     public function edit($page, $section)

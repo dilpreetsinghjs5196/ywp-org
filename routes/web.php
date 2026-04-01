@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PageContentController;
 use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/our-mission', [HomeController::class, 'ourMission'])->name('our-mission');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
 
 // Admin Routes

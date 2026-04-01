@@ -22,4 +22,16 @@ class HomeController extends Controller
 
         return view('home', compact('contents', 'campaigns'));
     }
+
+    public function ourMission()
+    {
+        $contents = PageContent::where('page', 'our-mission')
+            ->get()
+            ->groupBy('section')
+            ->mapWithKeys(function ($items, $section) {
+                return [$section => $items->pluck('value', 'key')];
+            });
+
+        return view('our-mission', compact('contents'));
+    }
 }
