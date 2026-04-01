@@ -28,7 +28,7 @@ class ProfessionalController extends Controller
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $data = $request->all();
+        $data = $request->except('_token');
 
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
@@ -60,7 +60,7 @@ class ProfessionalController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $data = $request->all();
+        $data = $request->except(['_token', '_method']);
 
         if ($request->hasFile('photo')) {
             // Delete old photo if exists

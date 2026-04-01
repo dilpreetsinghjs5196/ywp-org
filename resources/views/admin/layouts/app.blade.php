@@ -172,11 +172,8 @@
             <a href="{{ route('admin.professionals.index') }}" class="nav-link {{ Request::is('admin/professionals*') ? 'active' : '' }}">
                 <i class="fa fa-user-md"></i> Professionals
             </a>
-            <a href="#" class="nav-link">
-                <i class="fa fa-question-circle"></i> FAQs
-            </a>
-             <a href="#" class="nav-link">
-                <i class="fa fa-file-contract"></i> Policies
+            <a href="{{ route('admin.gallery.index') }}" class="nav-link {{ Request::is('admin/gallery*') ? 'active' : '' }}">
+                <i class="fa fa-images"></i> Gallery
             </a>
         </nav>
 

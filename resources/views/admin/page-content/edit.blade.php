@@ -40,13 +40,17 @@
                 <button type="button" id="add-slide" class="btn btn-success" style="border-radius: 10px;">
                     <i class="fa fa-plus"></i> Add Slide
                 </button>
-            @elseif($section === 'faq')
+            @elseif($section === 'faq' || $section === 'help_team' || $section === 'additional')
                 <button type="button" id="add-faq" class="btn btn-success" style="border-radius: 10px;">
                     <i class="fa fa-plus"></i> Add FAQ
                 </button>
             @elseif($section === 'members')
                 <button type="button" id="add-member" class="btn btn-success" style="border-radius: 10px;">
                     <i class="fa fa-plus"></i> Add Member
+                </button>
+            @elseif($section === 'rd_blogs' || $section === 'further_topics' || $section === 'references')
+                <button type="button" id="add-list-item" class="btn btn-success" style="border-radius: 10px;">
+                    <i class="fa fa-plus"></i> Add Item
                 </button>
             @endif
             <a href="{{ route('admin.page-content.index', ['group' => $group]) }}" class="btn btn-outline-secondary" style="border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
@@ -60,7 +64,7 @@
         <input type="hidden" name="page" value="{{ $page }}">
         <input type="hidden" name="section" value="{{ $section }}">
         
-        <div class="row g-4 @if($section === 'hero' || $section === 'we_believe' || $section === 'faq' || $section === 'members') item-container @endif">
+        <div class="row g-4 @if($section === 'hero' || $section === 'we_believe' || $section === 'faq' || $section === 'members' || $section === 'help_team' || $section === 'additional' || $section === 'rd_blogs' || $section === 'further_topics' || $section === 'references') item-container @endif">
             @if($section === 'hero')
                 @php
                     $slides = [];
@@ -102,7 +106,7 @@
                 @endforeach
             @elseif($section === 'we_believe')
                 @php
-                    $fixedFields = $contents->whereIn('key', ['tagline', 'title']);
+                    $fixedFields = collect($contents)->whereIn('key', ['tagline', 'title']);
                     $icons = [];
                     foreach($contents as $content) {
                         preg_match('/icon(\d+)_(\w+)/', $content->key, $matches);
@@ -162,9 +166,10 @@
                         <p class="text-muted italic">No icons added yet. Click "+ Add Icon" to start.</p>
                     </div>
                 @endif
-            @elseif($section === 'faq')
+            @elseif($section === 'faq' || $section === 'help_team' || $section === 'additional')
                 @php
                     $faqsArr = [];
+                    $fixedFields = collect($contents)->whereIn('key', ['title', 'description']);
                     foreach($contents as $content) {
                         if(preg_match('/faq(\d+)_(\w+)/', $content->key, $matches)) {
                             $faqsArr[$matches[1]][$matches[2]] = ['id' => $content->id, 'value' => $content->value];
@@ -172,6 +177,21 @@
                     }
                     ksort($faqsArr);
                 @endphp
+
+                @if(count($fixedFields) > 0)
+                <div class="col-12"><h4 class="mb-3">Header Info</h4></div>
+                @foreach($fixedFields as $field)
+                    <div class="col-md-12 mb-4">
+                        <label class="form-label text-capitalize" style="color: var(--text-muted);">{{ $field->key }}</label>
+                        @if($field->type === 'textarea')
+                            <textarea name="values[{{ $field->id }}]" class="form-control" rows="3">{{ $field->value }}</textarea>
+                        @else
+                            <input type="text" name="values[{{ $field->id }}]" class="form-control" value="{{ $field->value }}">
+                        @endif
+                    </div>
+                @endforeach
+                <div class="col-12"><hr class="my-4"></div>
+                @endif
 
                 @foreach($faqsArr as $index => $faqItem)
                     <div class="col-md-12 item-block mb-4" data-index="{{ $index }}">
@@ -196,6 +216,50 @@
                 @if(count($faqsArr) === 0)
                     <div class="col-12 text-center py-5 empty-msg">
                         <p class="text-muted italic">No FAQs added yet. Click "+ Add FAQ" to start.</p>
+                    </div>
+                @endif
+            @elseif($section === 'rd_blogs' || $section === 'further_topics' || $section === 'references')
+                @php
+                    $itemsArr = [];
+                    $fixedFields = collect($contents)->whereIn('key', ['title']);
+                    if ($section === 'rd_blogs') $prefix = 'idea';
+                    elseif ($section === 'further_topics') $prefix = 'topic';
+                    else $prefix = 'ref';
+                    
+                    foreach($contents as $content) {
+                        if(preg_match('/'.$prefix.'(\d+)/', $content->key, $matches)) {
+                            $itemsArr[$matches[1]] = ['id' => $content->id, 'value' => $content->value];
+                        }
+                    }
+                    ksort($itemsArr);
+                @endphp
+
+                @foreach($fixedFields as $field)
+                    <div class="col-md-12 mb-4">
+                        <label class="form-label text-capitalize" style="color: var(--text-muted);">{{ $field->key }}</label>
+                        <input type="text" name="values[{{ $field->id }}]" class="form-control" value="{{ $field->value }}">
+                    </div>
+                @endforeach
+                <div class="col-12"><hr class="my-4"></div>
+
+                @foreach($itemsArr as $index => $item)
+                    <div class="col-md-12 item-block mb-4" data-index="{{ $index }}">
+                        <div class="card p-3 border-0 shadow-sm" style="background: rgba(255,255,255,0.5); border-radius: 12px; position: relative;">
+                            <button type="button" class="btn btn-danger btn-sm remove-item" style="position: absolute; right: 10px; top: 10px; border-radius: 8px; padding: 2px 8px;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="icon text-success"><i class="fa fa-check-circle"></i></div>
+                                <div class="flex-grow-1">
+                                    <input type="text" name="list_items[{{ $index }}]" class="form-control" value="{{ $item['value'] }}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                @if(count($itemsArr) === 0)
+                    <div class="col-12 text-center py-5 empty-msg">
+                        <p class="text-muted italic">No items added yet. Click "+ Add Item" to start.</p>
                     </div>
                 @endif
             @elseif($section === 'members')
@@ -276,7 +340,7 @@
     </form>
 </div>
 
-@if($section === 'hero' || $section === 'we_believe' || $section === 'faq' || $section === 'members')
+@if($section === 'hero' || $section === 'we_believe' || $section === 'faq' || $section === 'members' || $section === 'help_team' || $section === 'additional' || $section === 'rd_blogs' || $section === 'further_topics' || $section === 'references')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.item-container');
@@ -284,9 +348,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const addIconBtn = document.getElementById('add-icon');
     const addFaqBtn = document.getElementById('add-faq');
     const addMemberBtn = document.getElementById('add-member');
+    const addListItemBtn = document.getElementById('add-list-item');
     
     function getMaxIndex(selector) {
-        let max = -1; // Changed to -1 to support 0 as first index
+        let max = -1;
         document.querySelectorAll(selector).forEach(item => {
             const index = parseInt(item.dataset.index);
             if (index > max) max = index;
@@ -389,6 +454,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    if(addListItemBtn) {
+        addListItemBtn.addEventListener('click', function() {
+            const emptyMsg = document.querySelector('.empty-msg');
+            if(emptyMsg) emptyMsg.remove();
+            
+            const nextIndex = getMaxIndex('.item-block') + 1;
+            const itemHtml = `
+                <div class="col-md-12 item-block mb-4" data-index="${nextIndex}">
+                    <div class="card p-3 border-0 shadow-sm" style="background: rgba(255,255,255,0.5); border-radius: 12px; position: relative;">
+                        <button type="button" class="btn btn-danger btn-sm remove-item" style="position: absolute; right: 10px; top: 10px; border-radius: 8px; padding: 2px 8px;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon text-success"><i class="fa fa-check-circle"></i></div>
+                            <div class="flex-grow-1">
+                                <input type="text" name="list_items[${nextIndex}]" class="form-control" placeholder="Enter item text..." required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', itemHtml);
+        });
+    }
+
     if(addMemberBtn) {
         addMemberBtn.addEventListener('click', function() {
             const emptyMsg = document.querySelector('.empty-msg');
@@ -422,8 +512,6 @@ document.addEventListener('DOMContentLoaded', function() {
             container.insertAdjacentHTML('beforeend', memberHtml);
         });
     }
-
-
 
     container.addEventListener('click', function(e) {
         if (e.target.classList.contains('remove-item') || e.target.parentElement.classList.contains('remove-item')) {

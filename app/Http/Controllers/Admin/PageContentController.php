@@ -16,7 +16,7 @@ class PageContentController extends Controller
         $query = PageContent::select('page', 'section')->distinct();
         
         if ($group === 'about') {
-            $query->whereIn('page', ['our-mission', 'history', 'advisory-board', 'on-board-professionals']);
+            $query->whereIn('page', ['our-mission', 'history', 'advisory-board', 'on-board-professionals', 'gallery', 'faq']);
         } else {
             $query->where('page', 'home');
         }
@@ -33,7 +33,7 @@ class PageContentController extends Controller
             ->get();
 
         // Determine group for navigation
-        $aboutPages = ['our-mission', 'history', 'advisory-board', 'on-board-professionals'];
+        $aboutPages = ['our-mission', 'history', 'advisory-board', 'on-board-professionals', 'gallery', 'faq'];
         $group = in_array($page, $aboutPages) ? 'about' : 'home';
 
         return view('admin.page-content.edit', compact('page', 'section', 'contents', 'group'));
@@ -111,7 +111,7 @@ class PageContentController extends Controller
                 }
             }
             PageContent::where('page', $page)->where('section', $section)->where('key', 'like', 'icon%')->whereNotIn('key', $validKeys)->delete();
-        } elseif ($section === 'faq') {
+        } elseif (in_array($section, ['faq', 'help_team', 'additional'])) {
             $validKeys = [];
             if ($request->has('faqs')) {
                 foreach ($request->faqs as $index => $faqData) {
@@ -133,6 +133,23 @@ class PageContentController extends Controller
                 }
             }
             PageContent::where('page', $page)->where('section', $section)->where('key', 'like', 'faq%')->whereNotIn('key', $validKeys)->delete();
+        } elseif (in_array($section, ['rd_blogs', 'further_topics', 'references'])) {
+            $validKeys = [];
+            if ($section === 'rd_blogs') $prefix = 'idea';
+            elseif ($section === 'further_topics') $prefix = 'topic';
+            else $prefix = 'ref';
+            
+            if ($request->has('list_items')) {
+                foreach ($request->list_items as $index => $itemValue) {
+                    $key = "{$prefix}{$index}";
+                    PageContent::updateOrCreate(
+                        ['page' => $page, 'section' => $section, 'key' => $key],
+                        ['value' => $itemValue ?? '', 'type' => 'text']
+                    );
+                    $validKeys[] = $key;
+                }
+            }
+            PageContent::where('page', $page)->where('section', $section)->where('key', 'like', "{$prefix}%")->whereNotIn('key', $validKeys)->delete();
         } elseif ($section === 'members') {
             $validKeys = [];
             if ($request->has('members')) {

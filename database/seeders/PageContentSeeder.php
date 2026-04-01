@@ -33,6 +33,10 @@ class PageContentSeeder extends Seeder
             // Welcome One
             ['page' => 'home', 'section' => 'welcome_one', 'key' => 'title', 'value' => 'YWP; is creating a safe space for the youth.', 'type' => 'textarea'],
             ['page' => 'home', 'section' => 'welcome_one', 'key' => 'description', 'value' => 'We at YWP; believe in providing a safe space to individuals struggling with mental health issues to give expression to their distressing feelings and thoughts without judgment and stigma. As such our work so far has not only included giving people a platform to share their stories but also provide peer counselling in view of curbing growing cases of suicide and self-harm.', 'type' => 'textarea'],
+
+            // Gallery
+            ['page' => 'gallery', 'section' => 'header', 'key' => 'title', 'value' => 'Gallery', 'type' => 'text'],
+            ['page' => 'gallery', 'section' => 'header', 'key' => 'bg_image', 'value' => 'images/gallery/gal-head.jpg', 'type' => 'image'],
         ];
 
         foreach ($contents as $content) {
