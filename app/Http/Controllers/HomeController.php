@@ -34,4 +34,28 @@ class HomeController extends Controller
 
         return view('our-mission', compact('contents'));
     }
+
+    public function history()
+    {
+        $contents = PageContent::where('page', 'history')
+            ->get()
+            ->groupBy('section')
+            ->mapWithKeys(function ($items, $section) {
+                return [$section => $items->pluck('value', 'key')];
+            });
+
+        return view('history', compact('contents'));
+    }
+
+    public function advisoryBoard()
+    {
+        $contents = PageContent::where('page', 'advisory-board')
+            ->get()
+            ->groupBy('section')
+            ->mapWithKeys(function ($items, $section) {
+                return [$section => $items->pluck('value', 'key')];
+            });
+
+        return view('advisory-board', compact('contents'));
+    }
 }

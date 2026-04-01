@@ -25,7 +25,11 @@
         <div>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('admin.page-content.index') }}" style="color: var(--accent-orange);">Home Content</a></li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('admin.page-content.index', ['group' => $group]) }}" style="color: var(--accent-orange);">
+                            {{ $group === 'about' ? 'About Pages' : 'Home Content' }}
+                        </a>
+                    </li>
                     <li class="breadcrumb-item text-capitalize" style="color: var(--text-muted);">{{ str_replace('_', ' ', $section) }}</li>
                 </ol>
             </nav>
@@ -40,8 +44,12 @@
                 <button type="button" id="add-faq" class="btn btn-success" style="border-radius: 10px;">
                     <i class="fa fa-plus"></i> Add FAQ
                 </button>
+            @elseif($section === 'members')
+                <button type="button" id="add-member" class="btn btn-success" style="border-radius: 10px;">
+                    <i class="fa fa-plus"></i> Add Member
+                </button>
             @endif
-            <a href="{{ route('admin.page-content.index') }}" class="btn btn-outline-secondary" style="border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
+            <a href="{{ route('admin.page-content.index', ['group' => $group]) }}" class="btn btn-outline-secondary" style="border-radius: 10px; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
                 <i class="fa fa-arrow-left"></i>
             </a>
         </div>
@@ -52,7 +60,7 @@
         <input type="hidden" name="page" value="{{ $page }}">
         <input type="hidden" name="section" value="{{ $section }}">
         
-        <div class="row g-4 @if($section === 'hero' || $section === 'we_believe' || $section === 'faq') item-container @endif">
+        <div class="row g-4 @if($section === 'hero' || $section === 'we_believe' || $section === 'faq' || $section === 'members') item-container @endif">
             @if($section === 'hero')
                 @php
                     $slides = [];
@@ -190,6 +198,51 @@
                         <p class="text-muted italic">No FAQs added yet. Click "+ Add FAQ" to start.</p>
                     </div>
                 @endif
+            @elseif($section === 'members')
+                @php
+                    $membersArr = [];
+                    foreach($contents as $content) {
+                        if(preg_match('/member(\d+)_(\w+)/', $content->key, $matches)) {
+                            $membersArr[$matches[1]][$matches[2]] = ['id' => $content->id, 'value' => $content->value];
+                        }
+                    }
+                    ksort($membersArr);
+                @endphp
+
+                @foreach($membersArr as $index => $member)
+                    <div class="col-md-12 item-block mb-4" data-index="{{ $index }}">
+                        <div class="card p-4 border-0 shadow-sm" style="background: rgba(255,255,255,0.5); border-radius: 15px; position: relative;">
+                            <button type="button" class="btn btn-danger btn-sm remove-item" style="position: absolute; right: 15px; top: 15px; border-radius: 8px;">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <h5 class="mb-4" style="color: var(--text-main);">Member Profile</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label text-muted small">Name</label>
+                                    <input type="text" name="members[{{ $index }}][name]" class="form-control" value="{{ $member['name']['value'] ?? '' }}" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label text-muted small">Description</label>
+                                    <textarea name="members[{{ $index }}][desc]" class="form-control" rows="4">{{ $member['desc']['value'] ?? '' }}</textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label text-muted small">Image</label>
+                                    <div class="d-flex align-items-center gap-3">
+                                        @if(isset($member['image']['value']))
+                                            <img src="{{ asset($member['image']['value']) }}" height="60" style="border-radius: 8px;">
+                                        @endif
+                                        <input type="file" name="members[{{ $index }}][image]" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                @if(count($membersArr) === 0)
+                    <div class="col-12 text-center py-5 empty-msg">
+                        <p class="text-muted italic">No members added yet. Click "+ Add Member" to start.</p>
+                    </div>
+                @endif
             @else
                 @foreach($contents as $content)
                     <div class="col-md-6 mb-3">
@@ -223,16 +276,17 @@
     </form>
 </div>
 
-@if($section === 'hero' || $section === 'we_believe' || $section === 'faq')
+@if($section === 'hero' || $section === 'we_believe' || $section === 'faq' || $section === 'members')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.item-container');
     const addSlideBtn = document.getElementById('add-slide');
     const addIconBtn = document.getElementById('add-icon');
     const addFaqBtn = document.getElementById('add-faq');
+    const addMemberBtn = document.getElementById('add-member');
     
     function getMaxIndex(selector) {
-        let max = 0;
+        let max = -1; // Changed to -1 to support 0 as first index
         document.querySelectorAll(selector).forEach(item => {
             const index = parseInt(item.dataset.index);
             if (index > max) max = index;
@@ -332,6 +386,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             container.insertAdjacentHTML('beforeend', faqHtml);
+        });
+    }
+
+    if(addMemberBtn) {
+        addMemberBtn.addEventListener('click', function() {
+            const emptyMsg = document.querySelector('.empty-msg');
+            if(emptyMsg) emptyMsg.remove();
+            
+            const nextIndex = getMaxIndex('.item-block') + 1;
+            const memberHtml = `
+                <div class="col-md-12 item-block mb-4" data-index="${nextIndex}">
+                    <div class="card p-4 border-0 shadow-sm" style="background: rgba(255,255,255,0.5); border-radius: 15px; position: relative;">
+                        <button type="button" class="btn btn-danger btn-sm remove-item" style="position: absolute; right: 15px; top: 15px; border-radius: 8px;">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                        <h5 class="mb-4" style="color: var(--text-main);">New Member Profile</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label text-muted small">Name</label>
+                                <input type="text" name="members[${nextIndex}][name]" class="form-control" placeholder="Member's Name" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label text-muted small">Description</label>
+                                <textarea name="members[${nextIndex}][desc]" class="form-control" rows="4" placeholder="Brief biography..."></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label text-muted small">Image</label>
+                                <input type="file" name="members[${nextIndex}][image]" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', memberHtml);
         });
     }
 

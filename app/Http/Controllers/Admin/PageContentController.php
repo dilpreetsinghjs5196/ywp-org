@@ -32,7 +32,11 @@ class PageContentController extends Controller
             ->where('section', $section)
             ->get();
 
-        return view('admin.page-content.edit', compact('page', 'section', 'contents'));
+        // Determine group for navigation
+        $aboutPages = ['our-mission', 'history', 'advisory-board', 'on-board-professionals'];
+        $group = in_array($page, $aboutPages) ? 'about' : 'home';
+
+        return view('admin.page-content.edit', compact('page', 'section', 'contents', 'group'));
     }
 
     public function update(Request $request)
@@ -129,6 +133,52 @@ class PageContentController extends Controller
                 }
             }
             PageContent::where('page', $page)->where('section', $section)->where('key', 'like', 'faq%')->whereNotIn('key', $validKeys)->delete();
+        } elseif ($section === 'members') {
+            $validKeys = [];
+            if ($request->has('members')) {
+                foreach ($request->members as $index => $memberData) {
+                    // Handle Name
+                    $nameKey = "member{$index}_name";
+                    PageContent::updateOrCreate(
+                        ['page' => $page, 'section' => $section, 'key' => $nameKey],
+                        ['value' => $memberData['name'] ?? '', 'type' => 'text']
+                    );
+                    $validKeys[] = $nameKey;
+
+                    // Handle Description
+                    $descKey = "member{$index}_desc";
+                    PageContent::updateOrCreate(
+                        ['page' => $page, 'section' => $section, 'key' => $descKey],
+                        ['value' => $memberData['desc'] ?? '', 'type' => 'textarea']
+                    );
+                    $validKeys[] = $descKey;
+
+                    // Handle Image
+                    $imageKey = "member{$index}_image";
+                    $existingImage = PageContent::where(['page' => $page, 'section' => $section, 'key' => $imageKey])->first();
+                    
+                    if ($request->hasFile("members.$index.image")) {
+                        $file = $request->file("members.$index.image");
+                        $fileName = time() . '_' . $index . '_' . $file->getClientOriginalName();
+                        $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/uploads';
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 0777, true);
+                        }
+                        $file->move($destinationPath, $fileName);
+                        $imagePath = 'uploads/' . $fileName;
+                    } else {
+                        $imagePath = $existingImage->value ?? 'images/preeti.jpg';
+                    }
+
+                    PageContent::updateOrCreate(
+                        ['page' => $page, 'section' => $section, 'key' => $imageKey],
+                        ['value' => $imagePath, 'type' => 'image']
+                    );
+                    $validKeys[] = $imageKey;
+                }
+            }
+            // Cleanup deleted members
+            PageContent::where('page', $page)->where('section', $section)->where('key', 'like', 'member%')->whereNotIn('key', $validKeys)->delete();
         }
 
         if ($request->has('values')) {

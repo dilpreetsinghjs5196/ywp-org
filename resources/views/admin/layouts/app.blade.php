@@ -160,10 +160,10 @@
         </a>
 
         <nav class="flex-grow-1">
-            <a href="{{ route('admin.page-content.index', ['group' => 'home']) }}" class="nav-link {{ (Request::get('group') === 'home' || (Request::is('admin/page-content*') && !Request::has('group'))) ? 'active' : '' }}">
+            <a href="{{ route('admin.page-content.index', ['group' => 'home']) }}" class="nav-link {{ (($group ?? Request::get('group')) === 'home' || (Request::is('admin/page-content*') && !isset($group) && !Request::has('group'))) ? 'active' : '' }}">
                 <i class="fa fa-home"></i> Home Content
             </a>
-            <a href="{{ route('admin.page-content.index', ['group' => 'about']) }}" class="nav-link {{ Request::get('group') === 'about' ? 'active' : '' }}">
+            <a href="{{ route('admin.page-content.index', ['group' => 'about']) }}" class="nav-link {{ ($group ?? Request::get('group')) === 'about' ? 'active' : '' }}">
                 <i class="fa fa-info-circle"></i> About Pages
             </a>
             <a href="{{ route('admin.campaigns.index') }}" class="nav-link {{ Request::is('admin/campaigns*') ? 'active' : '' }}">
