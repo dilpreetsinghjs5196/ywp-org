@@ -32,7 +32,16 @@ class CampaignController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/campaigns'), $fileName);
+
+            // Universal path (works local + server)
+            $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/uploads/campaigns';
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $file->move($destinationPath, $fileName);
+
             $data['image'] = 'uploads/campaigns/' . $fileName;
         }
 
@@ -59,10 +68,17 @@ class CampaignController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/campaigns'), $fileName);
-            $data['image'] = 'uploads/campaigns/' . $fileName;
 
-            // Optional: delete old image file
+            // Universal path (works local + server)
+            $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/uploads/campaigns';
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            $file->move($destinationPath, $fileName);
+
+            $data['image'] = 'uploads/campaigns/' . $fileName;
         }
 
         $campaign->update($data);

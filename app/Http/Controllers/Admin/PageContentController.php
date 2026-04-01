@@ -61,7 +61,13 @@ class PageContentController extends Controller
                     if ($request->hasFile("slides.$index.image")) {
                         $file = $request->file("slides.$index.image");
                         $fileName = time() . '_' . $index . '_' . $file->getClientOriginalName();
-                        $file->move(public_path('uploads'), $fileName);
+                        
+                        $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/uploads';
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 0777, true);
+                        }
+                        $file->move($destinationPath, $fileName);
+
                         $imagePath = 'uploads/' . $fileName;
                     } else {
                         $imagePath = $existingImage->value ?? 'images/slider-main-1.jpg';
@@ -126,7 +132,13 @@ class PageContentController extends Controller
                 if ($content->type === 'image' && $request->hasFile("values.$id")) {
                     $file = $request->file("values.$id");
                     $fileName = time() . '_' . $file->getClientOriginalName();
-                    $file->move(public_path('uploads'), $fileName);
+
+                    $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/uploads';
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 0777, true);
+                    }
+                    $file->move($destinationPath, $fileName);
+
                     $content->update(['value' => 'uploads/' . $fileName]);
                 } else {
                     $content->update(['value' => $value]);
