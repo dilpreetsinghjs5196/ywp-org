@@ -8,6 +8,7 @@ use App\Models\PageContent;
 use App\Models\Campaign;
 use App\Models\OnBoardProfessional;
 use App\Models\Gallery;
+use App\Models\Report;
 
 class HomeController extends Controller
 {
@@ -97,5 +98,11 @@ class HomeController extends Controller
             });
 
         return view('faq', compact('contents'));
+    }
+
+    public function researchPapers()
+    {
+        $reports = Report::orderBy('order')->get();
+        return view('research-papers', compact('reports'));
     }
 }

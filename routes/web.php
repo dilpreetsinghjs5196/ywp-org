@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PageContentController;
 use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
 use App\Http\Controllers\Admin\ProfessionalController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\ReportController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/our-mission', [HomeController::class, 'ourMission'])->name('our-mission');
@@ -15,6 +16,8 @@ Route::get('/advisory-board', [HomeController::class, 'advisoryBoard'])->name('a
 Route::get('/on-board-professionals', [HomeController::class, 'professionals'])->name('on-board-professionals');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+Route::get('/research-papers', [HomeController::class, 'researchPapers'])->name('research-papers');
+Route::redirect('/reports', '/research-papers');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
 
 // Admin Routes
@@ -34,4 +37,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('campaigns', AdminCampaignController::class);
     Route::resource('professionals', ProfessionalController::class);
     Route::resource('gallery', GalleryController::class);
+    Route::resource('reports', ReportController::class);
 });

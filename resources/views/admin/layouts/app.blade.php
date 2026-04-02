@@ -175,6 +175,9 @@
             <a href="{{ route('admin.gallery.index') }}" class="nav-link {{ Request::is('admin/gallery*') ? 'active' : '' }}">
                 <i class="fa fa-images"></i> Gallery
             </a>
+            <a href="{{ route('admin.reports.index') }}" class="nav-link {{ Request::is('admin/reports*') ? 'active' : '' }}">
+                <i class="fa fa-file-alt"></i> Research Papers
+            </a>
         </nav>
 
         <div class="mt-auto">

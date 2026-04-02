@@ -172,7 +172,7 @@
                             <li class="dropdown">
                                 <a href="#">Documents</a>
                                 <ul>
-                                    <li><a href="{{ url('reports') }}">Research Papers</a></li>
+                                    <li><a href="{{ url('research-papers') }}">Research Papers</a></li>
                                     <li><a href="{{ url('policies') }}">Policies</a></li>
                                     <li><a href="{{ url('report') }}">Reports</a></li>
                                 </ul>
@@ -263,7 +263,7 @@
                                     <li><a href="{{ url('our-mission') }}">Our Mission</a></li>
                                     <li><a href="{{ url('history') }}">History</a></li>
                                     <li><a href="{{ url('advisory-board') }}">Advisory Board</a></li>
-                                    <li><a href="{{ url('reports') }}">Research Papers</a></li>
+                                    <li><a href="{{ url('research-papers') }}">Research Papers</a></li>
                                 </ul>
                             </div>
                         </div>
