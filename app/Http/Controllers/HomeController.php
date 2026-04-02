@@ -9,6 +9,7 @@ use App\Models\Campaign;
 use App\Models\OnBoardProfessional;
 use App\Models\Gallery;
 use App\Models\Report;
+use App\Models\Policy;
 
 class HomeController extends Controller
 {
@@ -98,6 +99,12 @@ class HomeController extends Controller
             });
 
         return view('faq', compact('contents'));
+    }
+
+    public function policies()
+    {
+        $policies = Policy::orderBy('order')->get();
+        return view('policies', compact('policies'));
     }
 
     public function researchPapers()

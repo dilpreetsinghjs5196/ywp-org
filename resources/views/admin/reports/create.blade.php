@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="glass-card">
-    <div class="mb-4 d-flex align-items-center gap-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Add New Research Paper</h1>
         <a href="{{ route('admin.reports.index') }}" class="btn btn-outline-secondary" style="border-radius: 12px; height: 45px; width: 45px; display: flex; align-items: center; justify-content: center;">
             <i class="fa fa-arrow-left"></i>
         </a>
-        <h1 class="mb-0">Add New Research Paper</h1>
     </div>
 
     <form action="{{ route('admin.reports.store') }}" method="POST" enctype="multipart/form-data">

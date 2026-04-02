@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
 use App\Http\Controllers\Admin\ProfessionalController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\PolicyController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/our-mission', [HomeController::class, 'ourMission'])->name('our-mission');
@@ -17,6 +18,7 @@ Route::get('/on-board-professionals', [HomeController::class, 'professionals'])-
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/research-papers', [HomeController::class, 'researchPapers'])->name('research-papers');
+Route::get('/policies', [HomeController::class, 'policies'])->name('policies');
 Route::redirect('/reports', '/research-papers');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
 
@@ -38,4 +40,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('professionals', ProfessionalController::class);
     Route::resource('gallery', GalleryController::class);
     Route::resource('reports', ReportController::class);
+    Route::resource('policies', PolicyController::class);
 });

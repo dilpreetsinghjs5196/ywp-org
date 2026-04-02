@@ -176,7 +176,10 @@
                 <i class="fa fa-images"></i> Gallery
             </a>
             <a href="{{ route('admin.reports.index') }}" class="nav-link {{ Request::is('admin/reports*') ? 'active' : '' }}">
-                <i class="fa fa-file-alt"></i> Research Papers
+                <i class="fa fa-file-pdf"></i> Research Papers
+            </a>
+            <a href="{{ route('admin.policies.index') }}" class="nav-link {{ Request::is('admin/policies*') ? 'active' : '' }}">
+                <i class="fa fa-shield-alt"></i> Policies
             </a>
         </nav>
 

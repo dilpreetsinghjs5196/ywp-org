@@ -172,8 +172,8 @@
                             <li class="dropdown">
                                 <a href="#">Documents</a>
                                 <ul>
-                                    <li><a href="{{ url('research-papers') }}">Research Papers</a></li>
-                                    <li><a href="{{ url('policies') }}">Policies</a></li>
+                                    <li><a href="{{ route('research-papers') }}">Research Papers</a></li>
+                                    <li><a href="{{ route('policies') }}">Policies</a></li>
                                     <li><a href="{{ url('report') }}">Reports</a></li>
                                 </ul>
                             </li>
