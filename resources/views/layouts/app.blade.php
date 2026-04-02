@@ -155,10 +155,10 @@
                     <div class="main-menu-wrapper__main-menu">
                         <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
                         <ul class="main-menu__list">
-                            <li class="dropdown current">
+                            <li class="dropdown {{ Request::is('/') ? 'current' : '' }}">
                                 <a href="{{ url('/') }}">Home</a>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown {{ Request::is('our-mission') || Request::is('history') || Request::is('advisory-board') || Request::is('on-board-professionals') || Request::is('gallery') || Request::is('faq') ? 'current' : '' }}">
                                 <a href="#">About</a>
                                 <ul>
                                     <li><a href="{{ url('our-mission') }}">Our Mission</a></li>
@@ -169,18 +169,19 @@
                                     <li><a href="{{ url('faq') }}">FAQs</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown {{ Request::is('research-papers') || Request::is('policies') || Request::is('reports') || Request::is('newsletters') ? 'current' : '' }}">
                                 <a href="#">Documents</a>
                                 <ul>
                                     <li><a href="{{ route('research-papers') }}">Research Papers</a></li>
                                     <li><a href="{{ route('policies') }}">Policies</a></li>
                                     <li><a href="{{ route('reports') }}">Reports</a></li>
+                                    <li><a href="{{ route('newsletters') }}">Newsletters</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown {{ Request::is('team') ? 'current' : '' }}">
                                 <a href="{{ url('team') }}">Team</a>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown {{ Request::is('campaigns') || Request::is('events') || Request::is('training') ? 'current' : '' }}">
                                 <a href="#">Initiatives</a>
                                 <ul>
                                     <li><a href="{{ url('campaigns') }}">Campaigns</a></li>
@@ -188,10 +189,10 @@
                                     <li><a href="{{ url('training') }}">Trainings</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown {{ Request::is('blog') ? 'current' : '' }}">
                                 <a href="{{ url('blog') }}">Blog</a>
                             </li>
-                            <li class="dropdown"><a href="#">Connect</a>
+                            <li class="dropdown {{ Request::is('work-with-ywp') || Request::is('contact') ? 'current' : '' }}"><a href="#">Connect</a>
                                 <ul>
                                     <li><a href="{{ url('work-with-ywp') }}">Work with YWP</a></li>
                                     <li><a href="{{ url('contact') }}">Contact Us</a></li>
@@ -206,7 +207,7 @@
                                             YWP</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown {{ Request::is('wonderstore') ? 'current' : '' }}">
                                 <a href="{{ url('wonderstore') }}">Wonder Store</a>
                             </li>
                         </ul>

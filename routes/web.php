@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\AnnualReportController;
+use App\Http\Controllers\Admin\NewsletterController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/our-mission', [HomeController::class, 'ourMission'])->name('our-mission');
@@ -21,6 +22,7 @@ Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/research-papers', [HomeController::class, 'researchPapers'])->name('research-papers');
 Route::get('/policies', [HomeController::class, 'policies'])->name('policies');
 Route::get('/reports', [HomeController::class, 'reports'])->name('reports');
+Route::get('/newsletters', [HomeController::class, 'newsletters'])->name('newsletters');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
 
 // Admin Routes
@@ -43,4 +45,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('reports', ReportController::class);
     Route::resource('policies', PolicyController::class);
     Route::resource('annual-reports', AnnualReportController::class);
+    Route::resource('newsletters', NewsletterController::class);
 });

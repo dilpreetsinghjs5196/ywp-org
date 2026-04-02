@@ -11,6 +11,7 @@ use App\Models\Gallery;
 use App\Models\Report;
 use App\Models\Policy;
 use App\Models\AnnualReport;
+use App\Models\Newsletter;
 
 class HomeController extends Controller
 {
@@ -100,6 +101,15 @@ class HomeController extends Controller
             });
 
         return view('faq', compact('contents'));
+    }
+
+    /**
+     * Display Newsletters
+     */
+    public function newsletters()
+    {
+        $newsletters = Newsletter::orderBy('year', 'desc')->orderBy('order', 'asc')->get();
+        return view('newsletters', compact('newsletters'));
     }
 
     public function reports()
