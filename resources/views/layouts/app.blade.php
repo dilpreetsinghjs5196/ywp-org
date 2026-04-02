@@ -174,7 +174,7 @@
                                 <ul>
                                     <li><a href="{{ route('research-papers') }}">Research Papers</a></li>
                                     <li><a href="{{ route('policies') }}">Policies</a></li>
-                                    <li><a href="{{ url('report') }}">Reports</a></li>
+                                    <li><a href="{{ route('reports') }}">Reports</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">

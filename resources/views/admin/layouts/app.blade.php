@@ -181,6 +181,9 @@
             <a href="{{ route('admin.policies.index') }}" class="nav-link {{ Request::is('admin/policies*') ? 'active' : '' }}">
                 <i class="fa fa-shield-alt"></i> Policies
             </a>
+            <a href="{{ route('admin.annual-reports.index') }}" class="nav-link {{ Request::is('admin/annual-reports*') ? 'active' : '' }}">
+                <i class="fa fa-file-invoice"></i> Reports
+            </a>
         </nav>
 
         <div class="mt-auto">

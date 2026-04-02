@@ -10,6 +10,7 @@ use App\Models\OnBoardProfessional;
 use App\Models\Gallery;
 use App\Models\Report;
 use App\Models\Policy;
+use App\Models\AnnualReport;
 
 class HomeController extends Controller
 {
@@ -99,6 +100,12 @@ class HomeController extends Controller
             });
 
         return view('faq', compact('contents'));
+    }
+
+    public function reports()
+    {
+        $reports = AnnualReport::orderBy('order')->get();
+        return view('reports', compact('reports'));
     }
 
     public function policies()
