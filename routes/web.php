@@ -16,7 +16,6 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/our-mission', [HomeController::class, 'ourMission'])->name('our-mission');
 Route::get('/history', [HomeController::class, 'history'])->name('history');
 Route::get('/advisory-board', [HomeController::class, 'advisoryBoard'])->name('advisory-board');
-Route::get('/on-board-professionals', [HomeController::class, 'professionals'])->name('on-board-professionals');
 Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
 Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
 Route::get('/research-papers', [HomeController::class, 'researchPapers'])->name('research-papers');
@@ -40,7 +39,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/page-content/update', [PageContentController::class, 'update'])->name('page-content.update');
 
     Route::resource('campaigns', AdminCampaignController::class);
-    Route::resource('professionals', ProfessionalController::class);
     Route::resource('gallery', GalleryController::class);
     Route::resource('reports', ReportController::class);
     Route::resource('policies', PolicyController::class);

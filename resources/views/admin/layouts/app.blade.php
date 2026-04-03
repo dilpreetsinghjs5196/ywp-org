@@ -169,9 +169,6 @@
             <a href="{{ route('admin.campaigns.index') }}" class="nav-link {{ Request::is('admin/campaigns*') ? 'active' : '' }}">
                 <i class="fa fa-bullhorn"></i> Campaigns
             </a>
-            <a href="{{ route('admin.professionals.index') }}" class="nav-link {{ Request::is('admin/professionals*') ? 'active' : '' }}">
-                <i class="fa fa-user-md"></i> Professionals
-            </a>
             <a href="{{ route('admin.gallery.index') }}" class="nav-link {{ Request::is('admin/gallery*') ? 'active' : '' }}">
                 <i class="fa fa-images"></i> Gallery
             </a>

@@ -164,7 +164,6 @@
                                     <li><a href="{{ url('our-mission') }}">Our Mission</a></li>
                                     <li><a href="{{ url('history') }}">History</a></li>
                                     <li><a href="{{ url('advisory-board') }}">Advisory Board</a></li>
-                                    <li><a href="{{ url('on-board-professionals') }}">On-Board Professionals</a></li>
                                     <li><a href="{{ url('gallery') }}">Gallery</a></li>
                                     <li><a href="{{ url('faq') }}">FAQs</a></li>
                                 </ul>
