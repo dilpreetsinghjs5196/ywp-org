@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
+use App\Models\CampaignImage;
 use Illuminate\Http\Request;
 
 class CampaignController extends Controller
@@ -26,26 +27,35 @@ class CampaignController extends Controller
             'category' => 'nullable',
             'description' => 'nullable',
             'link' => 'nullable',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'nullable|image|max:2048',
+            'images.*' => 'nullable|image|max:2048'
         ]);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $fileName = time() . '_' . $file->getClientOriginalName();
+            $fileName = time() . '_thumb_' . $file->getClientOriginalName();
+            $destinationPath = public_path('uploads/campaigns');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+            $file->move($destinationPath, $fileName);
+            $data['image'] = 'uploads/campaigns/' . $fileName;
+        }
 
-            // Universal path (works local + server)
-            $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/uploads/campaigns';
+        $campaign = Campaign::create($data);
 
+        if ($request->hasFile('images')) {
+            $destinationPath = public_path('uploads/campaigns');
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
 
-            $file->move($destinationPath, $fileName);
-
-            $data['image'] = 'uploads/campaigns/' . $fileName;
+            foreach ($request->file('images') as $file) {
+                $fileName = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                $file->move($destinationPath, $fileName);
+                $campaign->images()->create(['image_path' => 'uploads/campaigns/' . $fileName]);
+            }
         }
-
-        Campaign::create($data);
 
         return redirect()->route('admin.campaigns.index')->with('success', 'Campaign created successfully!');
     }
@@ -62,26 +72,35 @@ class CampaignController extends Controller
             'category' => 'nullable',
             'description' => 'nullable',
             'link' => 'nullable',
-            'image' => 'nullable|image|max:2048'
+            'image' => 'nullable|image|max:2048',
+            'images.*' => 'nullable|image|max:2048'
         ]);
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-
-            // Universal path (works local + server)
-            $destinationPath = $_SERVER['DOCUMENT_ROOT'] . '/uploads/campaigns';
-
+            $fileName = time() . '_thumb_' . $file->getClientOriginalName();
+            $destinationPath = public_path('uploads/campaigns');
             if (!file_exists($destinationPath)) {
                 mkdir($destinationPath, 0777, true);
             }
-
             $file->move($destinationPath, $fileName);
-
             $data['image'] = 'uploads/campaigns/' . $fileName;
         }
 
         $campaign->update($data);
+
+        if ($request->hasFile('images')) {
+            $destinationPath = public_path('uploads/campaigns');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0777, true);
+            }
+
+            foreach ($request->file('images') as $file) {
+                $fileName = time() . '_' . uniqid() . '_' . $file->getClientOriginalName();
+                $file->move($destinationPath, $fileName);
+                $campaign->images()->create(['image_path' => 'uploads/campaigns/' . $fileName]);
+            }
+        }
 
         return redirect()->route('admin.campaigns.index')->with('success', 'Campaign updated successfully!');
     }
@@ -90,5 +109,16 @@ class CampaignController extends Controller
     {
         $campaign->delete();
         return redirect()->route('admin.campaigns.index')->with('success', 'Campaign deleted successfully!');
+    }
+
+    public function deleteImage($id)
+    {
+        $image = CampaignImage::findOrFail($id);
+        $path = public_path($image->image_path);
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        $image->delete();
+        return back()->with('success', 'Image removed successfully!');
     }
 }

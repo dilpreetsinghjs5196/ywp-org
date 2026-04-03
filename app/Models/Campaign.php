@@ -10,4 +10,9 @@ class Campaign extends Model
     use HasFactory;
 
     protected $fillable = ['category', 'title', 'description', 'image', 'link'];
+
+    public function images()
+    {
+        return $this->hasMany(CampaignImage::class);
+    }
 }

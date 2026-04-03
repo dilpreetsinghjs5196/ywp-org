@@ -38,6 +38,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/page-content/{page}/{section}', [PageContentController::class, 'edit'])->name('page-content.edit');
     Route::post('/page-content/update', [PageContentController::class, 'update'])->name('page-content.update');
 
+    Route::get('/campaigns/delete-image/{id}', [AdminCampaignController::class, 'deleteImage'])->name('campaigns.delete-image');
     Route::resource('campaigns', AdminCampaignController::class);
     Route::resource('gallery', GalleryController::class);
     Route::resource('reports', ReportController::class);
