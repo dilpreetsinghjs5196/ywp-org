@@ -42,6 +42,13 @@
             display: flex;
             flex-direction: column;
             z-index: 1000;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
         }
 
         .sidebar-brand {
@@ -183,6 +190,12 @@
             </a>
             <a href="{{ route('admin.newsletters.index') }}" class="nav-link {{ Request::is('admin/newsletters*') ? 'active' : '' }}">
                 <i class="fa fa-newspaper"></i> Newsletters
+            </a>
+            <a href="{{ route('admin.donations.index') }}" class="nav-link {{ Request::is('admin/donations*') ? 'active' : '' }}">
+                <i class="fa fa-hand-holding-heart"></i> Donations
+            </a>
+            <a href="{{ route('admin.settings.index') }}" class="nav-link {{ Request::is('admin/settings*') ? 'active' : '' }}">
+                <i class="fa fa-cog"></i> Settings
             </a>
         </nav>
 

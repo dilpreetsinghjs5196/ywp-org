@@ -191,29 +191,30 @@
                                     <li><a href="{{ url('training') }}">Trainings</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown {{ Request::is('blog') ? 'current' : '' }}">
+                            {{-- <li class="dropdown {{ Request::is('blog') ? 'current' : '' }}">
                                 <a href="{{ url('blog') }}">Blog</a>
-                            </li>
-                            <li
+                            </li> --}}
+                            {{-- <li
                                 class="dropdown {{ Request::is('work-with-ywp') || Request::is('contact') ? 'current' : '' }}">
                                 <a href="#">Connect</a>
                                 <ul>
                                     <li><a href="{{ url('work-with-ywp') }}">Work with YWP</a></li>
                                     <li><a href="{{ url('contact') }}">Contact Us</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="dropdown">
                                 <a href="#">Donate</a>
                                 <ul>
-                                    <li><a href="https://pages.razorpay.com/contributetoywp/" target="_blank">One-time
+                                    <li><a href="https://rzp.io/rzp/U8kq4f9l" target="_blank">One-time
                                             Donation</a></li>
-                                    <li><a href="https://yourewonderfulproject.org/pledge" target="_blank">Pledge for
+                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSci9fU6H6YvNqS36_t6I8S538l5p2q4G5t3T8-S56Z7S-2lQ/viewform"
+                                            target="_blank">Pledge for
                                             YWP</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown {{ Request::is('wonderstore') ? 'current' : '' }}">
+                            {{-- <li class="dropdown {{ Request::is('wonderstore') ? 'current' : '' }}">
                                 <a href="{{ url('wonderstore') }}">Wonder Store</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                     <div class="main-menu-wrapper__right">
