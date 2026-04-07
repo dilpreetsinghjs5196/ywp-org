@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Donation;
+use App\Models\Subscription;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Razorpay\Api\Api;
@@ -10,6 +12,73 @@ use Illuminate\Support\Facades\Log;
 
 class DonationController extends Controller
 {
+    public function subscriptions()
+    {
+        $api = $this->getRazorpayApi();
+        $localSubs = Subscription::latest()->get();
+        $enrichedSubs = collect();
+
+        foreach ($localSubs as $sub) {
+            $item = new \stdClass();
+            $item->id = $sub->id;
+            $item->donor_name = $sub->donor_name;
+            $item->donor_email = $sub->donor_email;
+            $item->amount = $sub->amount;
+            $item->razorpay_subscription_id = $sub->razorpay_subscription_id;
+            $item->status = $sub->status;
+            $item->next_billing_at_display = 'N/A';
+            $item->live_status = $sub->status;
+
+            // Try to fetch live data from Razorpay
+            if ($api && $sub->razorpay_subscription_id) {
+                try {
+                    $rzpSub = $api->subscription->fetch($sub->razorpay_subscription_id);
+                    $item->live_status = $rzpSub->status;
+                    if (!empty($rzpSub->charge_at)) {
+                        $item->next_billing_at_display = \Carbon\Carbon::createFromTimestamp($rzpSub->charge_at, 'Asia/Kolkata')->format('d M, Y');
+                    }
+                    // Also update the local record so it stays in sync
+                    $sub->update([
+                        'status' => $rzpSub->status,
+                        'next_billing_at' => !empty($rzpSub->charge_at) ? date('Y-m-d H:i:s', $rzpSub->charge_at) : null,
+                    ]);
+                } catch (\Exception $e) {
+                    Log::error('Error fetching Razorpay subscription: ' . $e->getMessage());
+                }
+            } elseif ($sub->next_billing_at) {
+                $item->next_billing_at_display = \Carbon\Carbon::parse($sub->next_billing_at)->format('d M, Y');
+            }
+
+            $enrichedSubs->push($item);
+        }
+
+        return view('admin.subscriptions.index', ['subscriptions' => $enrichedSubs]);
+    }
+
+    public function cancelSubscription($id)
+    {
+        $sub = Subscription::findOrFail($id);
+        $api = $this->getRazorpayApi();
+
+        if (!$api) {
+            return back()->with('error', 'Razorpay API keys not configured.');
+        }
+
+        try {
+            $rzpSub = $api->subscription->fetch($sub->razorpay_subscription_id);
+            
+            if ($rzpSub->status === 'active' || $rzpSub->status === 'created') {
+                $rzpSub->cancel(['cancel_at_cycle_end' => 0]); // Cancel immediately
+            }
+
+            $sub->update(['status' => 'cancelled']);
+            
+            return back()->with('success', 'Subscription cancelled successfully.');
+        } catch (\Exception $e) {
+            Log::error('Razorpay Subscription Cancel Error: ' . $e->getMessage());
+            return back()->with('error', 'Failed to cancel subscription: ' . $e->getMessage());
+        }
+    }
     private function getRazorpayApi()
     {
         $keyId = Setting::where('key', 'razorpay_key')->value('value');

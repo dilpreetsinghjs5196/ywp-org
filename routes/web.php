@@ -27,6 +27,10 @@ Route::get('/policies', [HomeController::class, 'policies'])->name('policies');
 Route::get('/reports', [HomeController::class, 'reports'])->name('reports');
 Route::get('/newsletters', [HomeController::class, 'newsletters'])->name('newsletters');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
+Route::get('/donate', [DonationController::class, 'showDonate'])->name('donate');
+Route::post('/donate/initiate', [DonationController::class, 'initiateCheckout'])->name('donate.initiate');
+Route::get('/subscription/manage/{id}', [DonationController::class, 'showManageSubscription'])->name('subscription.manage');
+Route::post('/subscription/cancel/{id}', [DonationController::class, 'processPublicCancel'])->name('subscription.cancel');
 Route::post('/razorpay/webhook', [DonationController::class, 'handleWebhook']);
 
 // Admin Routes
@@ -45,6 +49,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::get('/donations', [AdminDonationController::class, 'index'])->name('donations.index');
     Route::get('/donations/download', [AdminDonationController::class, 'download'])->name('donations.download');
+    Route::get('/subscriptions', [AdminDonationController::class, 'subscriptions'])->name('subscriptions.index');
+    Route::post('/subscriptions/cancel/{id}', [AdminDonationController::class, 'cancelSubscription'])->name('subscriptions.cancel');
     Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('/settings/update', [AdminSettingController::class, 'update'])->name('settings.update');
 

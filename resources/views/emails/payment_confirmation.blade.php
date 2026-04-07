@@ -22,6 +22,13 @@
 
         <p>If you've provided your PAN number, your 80G tax benefit receipt will be processed shortly.</p>
 
+        @if($donation->is_recurring && $donation->subscription)
+        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <p style="color: #64748b; font-size: 14px;">This is a monthly recurring donation. You can manage or stop your subscription at any time by clicking the link below:</p>
+            <p><a href="{{ route('subscription.manage', $donation->subscription->razorpay_subscription_id) }}" style="display: inline-block; background: #ff7e3b; color: #fff; padding: 12px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;">Manage Subscription</a></p>
+        </div>
+        @endif
+
         <p>Warm regards,<br>
         <strong>The You're Wonderful Project Team</strong></p>
     </div>

@@ -194,6 +194,9 @@
             <a href="{{ route('admin.donations.index') }}" class="nav-link {{ Request::is('admin/donations*') ? 'active' : '' }}">
                 <i class="fa fa-hand-holding-heart"></i> Donations
             </a>
+            <a href="{{ route('admin.subscriptions.index') }}" class="nav-link {{ Request::is('admin/subscriptions*') ? 'active' : '' }}">
+                <i class="fa fa-sync"></i> Subscriptions
+            </a>
             <a href="{{ route('admin.settings.index') }}" class="nav-link {{ Request::is('admin/settings*') ? 'active' : '' }}">
                 <i class="fa fa-cog"></i> Settings
             </a>

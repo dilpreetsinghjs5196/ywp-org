@@ -202,11 +202,11 @@
                                     <li><a href="{{ url('contact') }}">Contact Us</a></li>
                                 </ul>
                             </li> --}}
-                            <li class="dropdown">
+                            <li class="dropdown {{ Request::is('donate') ? 'current' : '' }}">
                                 <a href="#">Donate</a>
                                 <ul>
-                                    <li><a href="https://rzp.io/rzp/U8kq4f9l" target="_blank">One-time
-                                            Donation</a></li>
+                                    <li><a href="https://rzp.io/rzp/U8kq4f9l" target="_blank">One-time Donation</a></li>
+                                    <li><a href="{{ route('donate') }}">Monthly Donation</a></li>
                                     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSci9fU6H6YvNqS36_t6I8S538l5p2q4G5t3T8-S56Z7S-2lQ/viewform"
                                             target="_blank">Pledge for
                                             YWP</a></li>
