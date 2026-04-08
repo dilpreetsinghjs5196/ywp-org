@@ -191,9 +191,9 @@
                                     <li><a href="{{ url('training') }}">Trainings</a></li>
                                 </ul>
                             </li>
-                            {{-- <li class="dropdown {{ Request::is('blog') ? 'current' : '' }}">
-                                <a href="{{ url('blog') }}">Blog</a>
-                            </li> --}}
+                            <li class="dropdown {{ Request::is('blog*') ? 'current' : '' }}">
+                                <a href="{{ route('blog.index') }}">Blog</a>
+                            </li>
                             {{-- <li
                                 class="dropdown {{ Request::is('work-with-ywp') || Request::is('contact') ? 'current' : '' }}">
                                 <a href="#">Connect</a>
