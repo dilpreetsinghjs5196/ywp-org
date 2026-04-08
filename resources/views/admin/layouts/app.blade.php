@@ -191,6 +191,12 @@
             <a href="{{ route('admin.newsletters.index') }}" class="nav-link {{ Request::is('admin/newsletters*') ? 'active' : '' }}">
                 <i class="fa fa-newspaper"></i> Newsletters
             </a>
+            <a href="{{ route('admin.blog.index') }}" class="nav-link {{ Request::is('admin/blog*') ? 'active' : '' }}">
+                <i class="fa fa-blog"></i> Manage Blog
+            </a>
+            <a href="{{ route('admin.blog-categories.index') }}" class="nav-link {{ Request::is('admin/blog-categories*') ? 'active' : '' }}">
+                <i class="fa fa-tags"></i> Blog Categories
+            </a>
             <a href="{{ route('admin.donations.index') }}" class="nav-link {{ Request::is('admin/donations*') ? 'active' : '' }}">
                 <i class="fa fa-hand-holding-heart"></i> Donations
             </a>

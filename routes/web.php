@@ -11,9 +11,12 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\AnnualReportController;
 use App\Http\Controllers\Admin\NewsletterController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogPostController;
 
 use App\Http\Controllers\Admin\DonationController as AdminDonationController;
 use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DonationController;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -26,6 +29,9 @@ Route::get('/research-papers', [HomeController::class, 'researchPapers'])->name(
 Route::get('/policies', [HomeController::class, 'policies'])->name('policies');
 Route::get('/reports', [HomeController::class, 'reports'])->name('reports');
 Route::get('/newsletters', [HomeController::class, 'newsletters'])->name('newsletters');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
 Route::get('/donate', [DonationController::class, 'showDonate'])->name('donate');
 Route::post('/donate/initiate', [DonationController::class, 'initiateCheckout'])->name('donate.initiate');
@@ -61,4 +67,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('policies', PolicyController::class);
     Route::resource('annual-reports', AnnualReportController::class);
     Route::resource('newsletters', NewsletterController::class);
+    Route::resource('blog-categories', BlogCategoryController::class);
+    Route::get('/blog/delete-image/{id}', [BlogPostController::class, 'deleteImage'])->name('blog.delete-image');
+    Route::resource('blog', BlogPostController::class);
 });
