@@ -194,14 +194,14 @@
                             <li class="dropdown {{ Request::is('blog*') ? 'current' : '' }}">
                                 <a href="{{ route('blog.index') }}">Blog</a>
                             </li>
-                            {{-- <li
+                            <li
                                 class="dropdown {{ Request::is('work-with-ywp') || Request::is('contact') ? 'current' : '' }}">
                                 <a href="#">Connect</a>
                                 <ul>
                                     <li><a href="{{ url('work-with-ywp') }}">Work with YWP</a></li>
                                     <li><a href="{{ url('contact') }}">Contact Us</a></li>
                                 </ul>
-                            </li> --}}
+                            </li>
                             <li class="dropdown {{ Request::is('donate') ? 'current' : '' }}">
                                 <a href="#">Donate</a>
                                 <ul>

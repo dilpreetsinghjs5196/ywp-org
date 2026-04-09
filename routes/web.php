@@ -16,8 +16,10 @@ use App\Http\Controllers\Admin\BlogPostController;
 
 use App\Http\Controllers\Admin\DonationController as AdminDonationController;
 use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\Admin\RecruitmentController as AdminRecruitmentController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\RecruitmentController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/our-mission', [HomeController::class, 'ourMission'])->name('our-mission');
@@ -33,6 +35,8 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::get('/blog/category/{slug}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.index');
+Route::get('/work-with-ywp', [RecruitmentController::class, 'index'])->name('work-with-ywp');
+Route::post('/work-with-ywp', [RecruitmentController::class, 'store'])->name('work-with-ywp.store');
 Route::get('/donate', [DonationController::class, 'showDonate'])->name('donate');
 Route::post('/donate/initiate', [DonationController::class, 'initiateCheckout'])->name('donate.initiate');
 Route::get('/subscription/manage/{id}', [DonationController::class, 'showManageSubscription'])->name('subscription.manage');
@@ -70,4 +74,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('blog-categories', BlogCategoryController::class);
     Route::get('/blog/delete-image/{id}', [BlogPostController::class, 'deleteImage'])->name('blog.delete-image');
     Route::resource('blog', BlogPostController::class);
+    Route::resource('recruitment', AdminRecruitmentController::class);
 });
