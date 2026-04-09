@@ -37,6 +37,22 @@ class PageContentSeeder extends Seeder
             // Gallery
             ['page' => 'gallery', 'section' => 'header', 'key' => 'title', 'value' => 'Gallery', 'type' => 'text'],
             ['page' => 'gallery', 'section' => 'header', 'key' => 'bg_image', 'value' => 'images/gallery/gal-head.jpg', 'type' => 'image'],
+
+            // Work with YWP
+            ['page' => 'work-with-ywp', 'section' => 'header', 'key' => 'title', 'value' => 'Work with YWP', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'header', 'key' => 'bg_image', 'value' => 'images/campaigns-1-5.jpg', 'type' => 'image'],
+            
+            ['page' => 'work-with-ywp', 'section' => 'recruitment_process', 'key' => 'intro', 'value' => 'Recruitment for any position at YWP; follows a 4 Tier-process', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'recruitment_process', 'key' => 'round_1', 'value' => 'Round 1: Application Screening', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'recruitment_process', 'key' => 'round_2', 'value' => 'Round 2: HR- Round', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'recruitment_process', 'key' => 'round_3', 'value' => 'Round 3: Technical Round (with the department head)', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'recruitment_process', 'key' => 'round_4', 'value' => 'Round 4: Founder\'s Round', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'recruitment_process', 'key' => 'footer_note', 'value' => 'We don\'t intimate about rejected applications. Best of luck!', 'type' => 'text'],
+
+            ['page' => 'work-with-ywp', 'section' => 'form_content', 'key' => 'tagline', 'value' => 'Work with us', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'form_content', 'key' => 'title', 'value' => 'YWP; Recruitment Form \'23', 'type' => 'text'],
+            ['page' => 'work-with-ywp', 'section' => 'form_content', 'key' => 'description_1', 'value' => 'You\'re Wonderful Project; is a registered trust (2017) that works on mental health awareness, increasing the accessibility of mental health services and providing peer support. On the ground, we execute this through a strong research-oriented course of action, and a range of events and campaigns. We have support teams in the organization which help in enabling this process, namely, the Design team, the Research and Development team, the Fundraising team, HR, the Creative (content) team, the Events team, the Merchandise team and the Photography & Videography team.', 'type' => 'textarea'],
+            ['page' => 'work-with-ywp', 'section' => 'form_content', 'key' => 'description_2', 'value' => 'You will be asked for your preference of departments, below. However, that doesn\'t necessarily imply you getting into the departments of only your choice. After a meticulous interview process, the organisation would deem it appropriate as to what department might suit you the best. Please note that this is a 6- month volunteer opportunity. This can be extended as per your wishes and motivation to work with the organization', 'type' => 'textarea'],
         ];
 
         foreach ($contents as $content) {

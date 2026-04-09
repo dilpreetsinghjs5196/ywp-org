@@ -17,6 +17,8 @@ class PageContentController extends Controller
         
         if ($group === 'about') {
             $query->whereIn('page', ['our-mission', 'history', 'advisory-board', 'on-board-professionals', 'gallery', 'faq']);
+        } elseif ($group === 'recruitment_content') {
+            $query->where('page', 'work-with-ywp');
         } else {
             $query->where('page', 'home');
         }
@@ -34,7 +36,11 @@ class PageContentController extends Controller
 
         // Determine group for navigation
         $aboutPages = ['our-mission', 'history', 'advisory-board', 'on-board-professionals', 'gallery', 'faq'];
-        $group = in_array($page, $aboutPages) ? 'about' : 'home';
+        if ($page === 'work-with-ywp') {
+            $group = 'recruitment_content';
+        } else {
+            $group = in_array($page, $aboutPages) ? 'about' : 'home';
+        }
 
         return view('admin.page-content.edit', compact('page', 'section', 'contents', 'group'));
     }

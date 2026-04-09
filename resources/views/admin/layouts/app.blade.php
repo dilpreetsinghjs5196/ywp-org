@@ -203,6 +203,12 @@
             <a href="{{ route('admin.subscriptions.index') }}" class="nav-link {{ Request::is('admin/subscriptions*') ? 'active' : '' }}">
                 <i class="fa fa-sync"></i> Subscriptions
             </a>
+            <a href="{{ route('admin.recruitment.index') }}" class="nav-link {{ Request::is('admin/recruitment*') ? 'active' : '' }}">
+                <i class="fa fa-user-plus"></i> Recruitment Apps
+            </a>
+            <a href="{{ route('admin.page-content.index', ['group' => 'recruitment_content']) }}" class="nav-link {{ ($group ?? Request::get('group')) === 'recruitment_content' ? 'active' : '' }}">
+                <i class="fa fa-edit"></i> Recruitment Page
+            </a>
             <a href="{{ route('admin.settings.index') }}" class="nav-link {{ Request::is('admin/settings*') ? 'active' : '' }}">
                 <i class="fa fa-cog"></i> Settings
             </a>
