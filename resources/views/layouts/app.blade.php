@@ -47,6 +47,37 @@
         .footer-donate__btn-dynamic:hover .fa-heart {
             color: #fff !important;
         }
+
+        .mobile-donate-btn {
+            display: none;
+        }
+
+        @media (max-width: 1199px) {
+            .mobile-donate-btn {
+                display: flex !important;
+                align-items: center;
+                background-color: #ff4c1e;
+                color: #fff !important;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-size: 14px;
+                font-weight: 700;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                text-decoration: none;
+                transition: all 0.3s ease;
+                white-space: nowrap;
+                z-index: 999;
+            }
+            .mobile-donate-btn:hover {
+                background-color: #1a1a1a;
+            }
+            .mobile-donate-btn i {
+                margin-right: 8px;
+            }
+        }
     </style>
     <!-- favicons Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/ymp-logo.png') }}" />
@@ -152,6 +183,9 @@
                             </div>
                         </div>
                     </div>
+                    <a href="https://pledge.yourewonderfulproject.org/" class="mobile-donate-btn" target="_blank"> 
+                        <i class="fa fa-heart"></i> Donate Now
+                    </a>
                     <div class="main-menu-wrapper__main-menu">
                         <a href="#" class="mobile-nav__toggler"><i class="fa fa-bars"></i></a>
                         <ul class="main-menu__list">
