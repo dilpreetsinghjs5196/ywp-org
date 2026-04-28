@@ -71,9 +71,11 @@
                 white-space: nowrap;
                 z-index: 999;
             }
+
             .mobile-donate-btn:hover {
                 background-color: #1a1a1a;
             }
+
             .mobile-donate-btn i {
                 margin-right: 8px;
             }
@@ -183,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="https://pledge.yourewonderfulproject.org/" class="mobile-donate-btn" target="_blank"> 
+                    <a href="https://pledge.yourewonderfulproject.org/" class="mobile-donate-btn" target="_blank">
                         <i class="fa fa-heart"></i> Donate Now
                     </a>
                     <div class="main-menu-wrapper__main-menu">
@@ -237,10 +239,11 @@
                                 </ul>
                             </li>
                             <li class="dropdown {{ Request::is('donate') ? 'current' : '' }}">
-                                <a href="#">Donate</a>
+                                <a href="{{ route('donate') }}">Donate</a>
                                 <ul>
-                                    <li><a href="https://rzp.io/rzp/U8kq4f9l" target="_blank">One-time Donation</a></li>
-                                    <li><a href="{{ route('donate') }}">Monthly Donation</a></li>
+                                    {{-- <li><a href="{{ route('donate', ['type' => 'one_time']) }}">One-time
+                                            Donation</a></li> --}}
+                                    <li><a href="{{ route('donate', ['type' => 'monthly']) }}">Donate Now</a></li>
                                     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSci9fU6H6YvNqS36_t6I8S538l5p2q4G5t3T8-S56Z7S-2lQ/viewform"
                                             target="_blank">Pledge for
                                             YWP</a></li>

@@ -38,6 +38,9 @@ Route::get('/campaigns', [CampaignController::class, 'index'])->name('campaigns.
 Route::get('/work-with-ywp', [RecruitmentController::class, 'index'])->name('work-with-ywp');
 Route::post('/work-with-ywp', [RecruitmentController::class, 'store'])->name('work-with-ywp.store');
 Route::get('/donate', [DonationController::class, 'showDonate'])->name('donate');
+Route::get('/thanks', function () {
+    return view('thanks');
+})->name('thanks');
 Route::post('/donate/initiate', [DonationController::class, 'initiateCheckout'])->name('donate.initiate');
 Route::get('/subscription/manage/{id}', [DonationController::class, 'showManageSubscription'])->name('subscription.manage');
 Route::post('/subscription/cancel/{id}', [DonationController::class, 'processPublicCancel'])->name('subscription.cancel');

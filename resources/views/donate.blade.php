@@ -210,16 +210,27 @@
                     </div>
 
                     <div class="donate-body">
+                        <!-- Toggle Switch -->
+                        <div class="toggle-container">
+                            <div class="toggle-switch">
+                                <div class="toggle-option {{ request('type') != 'monthly' ? 'active' : '' }}" data-type="one_time">One-time</div>
+                                <div class="toggle-option {{ request('type') == 'monthly' ? 'active' : '' }}" data-type="monthly">Monthly</div>
+                            </div>
+                        </div>
+
                         <form id="donateForm">
                             @csrf
-                            <!-- Hidden Type (Set to Monthly) -->
-                            <input type="hidden" name="type" id="donationType" value="monthly">
+                            <input type="hidden" name="type" id="donationType" value="{{ request('type') == 'monthly' ? 'monthly' : 'one_time' }}">
                             <input type="hidden" name="amount" id="selectedAmount" value="1000">
 
-                            <!-- Monthly Subscription Heading -->
+                            <!-- Dynamic Heading -->
                             <div class="text-center mb-4">
-                                <h3 style="font-weight: 800; color: #0f172a; margin-bottom: 5px;">Monthly Subscription</h3>
-                                <p class="text-muted small">Choose an amount to contribute every month</p>
+                                <h3 id="donationTitle" style="font-weight: 800; color: #0f172a; margin-bottom: 5px;">
+                                    {{ request('type') == 'monthly' ? 'Monthly Subscription' : 'One-time Donation' }}
+                                </h3>
+                                <p id="donationDesc" class="text-muted small">
+                                    {{ request('type') == 'monthly' ? 'Choose an amount to contribute every month' : 'Choose an amount to contribute once' }}
+                                </p>
                             </div>
 
                             <!-- Amount Selection -->
@@ -252,9 +263,17 @@
                                     <label>Contact Number</label>
                                     <input type="text" name="mobile" class="form-control" placeholder="98XXXXXXXX" required>
                                 </div>
-                                <div class="col-md-12 form-group mb-3">
+                                <div class="col-md-6 form-group mb-3">
+                                    <label>Referred By</label>
+                                    <input type="text" name="referred_by" class="form-control" placeholder="Friend, Social Media, etc.">
+                                </div>
+                                <div class="col-md-6 form-group mb-3">
                                     <label>PAN Number (Optional for 80G)</label>
                                     <input type="text" name="pan" class="form-control" placeholder="ABCDE1234F">
+                                </div>
+                                <div class="col-md-12 form-group mb-3">
+                                    <label>Residential Address</label>
+                                    <textarea name="address" class="form-control" rows="2" placeholder="Your full address for 80G receipt"></textarea>
                                 </div>
                             </div>
 
@@ -278,8 +297,24 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     $(document).ready(function() {
-        // Removed Toggle Logic
-        $('#monthlyMsg').show();
+        // Toggle Logic
+        $('.toggle-option').click(function() {
+            $('.toggle-option').removeClass('active');
+            $(this).addClass('active');
+            
+            const type = $(this).data('type');
+            $('#donationType').val(type);
+            
+            if(type === 'monthly') {
+                $('#donationTitle').text('Monthly Subscription');
+                $('#donationDesc').text('Choose an amount to contribute every month');
+                $('#monthlyMsg').slideDown();
+            } else {
+                $('#donationTitle').text('One-time Donation');
+                $('#donationDesc').text('Choose an amount to contribute once');
+                $('#monthlyMsg').slideUp();
+            }
+        });
 
         // Amount Selection
         $('.amount-item').click(function() {
@@ -332,8 +367,8 @@
                         "color": "#ff7e3b"
                     },
                     "handler": function (res) {
-                        // After payment, redirect to a success page or show success message
-                        window.location.href = "/?success=true";
+                        // After payment, redirect to the thanks page
+                        window.location.href = "{{ route('thanks') }}";
                     }
                 };
 
@@ -351,8 +386,9 @@
                     btn.prop('disabled', false).html('Donate <span id="btnAmount">₹' + $('#selectedAmount').val() + '</span> Now');
                 });
 
-            }).fail(function() {
-                alert("Something went wrong. Please try again.");
+            }).fail(function(xhr) {
+                const errorMsg = (xhr.responseJSON && xhr.responseJSON.error) ? xhr.responseJSON.error : "Something went wrong. Please try again.";
+                alert(errorMsg);
                 btn.prop('disabled', false).html('Donate <span id="btnAmount">₹' + $('#selectedAmount').val() + '</span> Now');
             });
         });

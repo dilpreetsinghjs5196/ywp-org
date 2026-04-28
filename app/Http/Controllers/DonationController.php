@@ -49,15 +49,14 @@ class DonationController extends Controller
         $name = $request->name;
         $email = $request->email;
         $mobile = $request->mobile;
+        $referred_by = $request->referred_by ?? 'N/A';
+        $address = $request->address ?? 'N/A';
+        $pan = $request->pan ?? 'N/A';
 
         try {
             if ($type === 'monthly') {
                 // 1. Logic for Monthly Subscription
-                // We need a Plan ID. For custom amounts, we create a plan on the fly.
-                
                 $planName = "Monthly Support - ₹" . $amount;
-                // Check if a plan with this exact amount exists in your Razorpay account
-                // For simplicity in this demo, we create it every time or you can cache/store plan IDs
                 
                 $plan = $api->plan->create([
                     'period' => 'monthly',
@@ -78,7 +77,10 @@ class DonationController extends Controller
                         'name' => $name,
                         'email' => $email,
                         'mobile' => $mobile,
-                        'pan' => $request->pan
+                        'pan' => $pan,
+                        'referred_by' => $referred_by,
+                        'address' => $address,
+                        'donation_type' => $type
                     ]
                 ]);
 
@@ -114,8 +116,24 @@ class DonationController extends Controller
                         'name' => $name,
                         'email' => $email,
                         'mobile' => $mobile,
-                        'pan' => $request->pan
+                        'pan' => $pan,
+                        'referred_by' => $referred_by,
+                        'address' => $address,
+                        'donation_type' => $type
                     ]
+                ]);
+
+                // Create local pending record
+                Donation::create([
+                    'donor_name' => $name,
+                    'donor_email' => $email,
+                    'donor_mobile' => $mobile,
+                    'donor_pan' => $pan,
+                    'donor_address' => $address,
+                    'referred_by' => $referred_by,
+                    'amount' => $amount,
+                    'order_id' => $order->id,
+                    'status' => 'pending'
                 ]);
 
                 return response()->json([
@@ -192,31 +210,34 @@ class DonationController extends Controller
 
     private function handlePaymentCaptured($payment)
     {
-        $notes = $payment['notes'];
-        $donation = Donation::where('payment_id', $payment['id'])->first();
-
+        $donation = Donation::where('order_id', $payment['order_id'])->first();
         if (!$donation) {
+            // If it was a generic payment link or direct payment
             $donation = Donation::create([
-                'donor_name'    => $notes['name'] ?? $notes['full_name'] ?? ($payment['email'] ? explode('@', $payment['email'])[0] : 'Donor'),
-                'donor_email'   => $payment['email'],
-                'donor_mobile'  => $payment['contact'],
-                'donor_pan'     => $notes['pan_number'] ?? $notes['pan'] ?? 'N/A',
-                'donor_address' => $notes['address'] ?? $notes['residential_address'] ?? 'N/A',
-                'referred_by'   => $notes['referred_by'] ?? 'N/A',
-                'amount'        => $payment['amount'] / 100,
-                'currency'      => $payment['currency'],
-                'payment_id'    => $payment['id'],
-                'order_id'      => $payment['order_id'] ?? null,
-                'status'        => 'captured',
-                'details'       => json_encode($payment),
-                'is_recurring'  => false
+                'payment_id' => $payment['id'],
+                'order_id' => $payment['order_id'] ?? null,
+                'donor_name' => $payment['notes']['name'] ?? 'Donor',
+                'donor_email' => $payment['notes']['email'] ?? null,
+                'donor_mobile' => $payment['notes']['mobile'] ?? null,
+                'donor_pan' => $payment['notes']['pan'] ?? null,
+                'donor_address' => $payment['notes']['address'] ?? null,
+                'referred_by' => $payment['notes']['referred_by'] ?? null,
+                'amount' => $payment['amount'] / 100,
+                'status' => 'captured'
             ]);
+        } else {
+            $donation->update([
+                'payment_id' => $payment['id'],
+                'status' => 'captured'
+            ]);
+        }
 
-            try {
+        try {
+            if ($donation->donor_email) {
                 Mail::to($donation->donor_email)->send(new PaymentConfirmation($donation));
-            } catch (\Exception $e) {
-                \Log::error('Error sending user email: ' . $e->getMessage());
             }
+        } catch (\Exception $e) {
+            \Log::error('Error sending user email: ' . $e->getMessage());
         }
     }
 
