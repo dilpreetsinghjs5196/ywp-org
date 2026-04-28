@@ -11,19 +11,19 @@
             </svg>
         </div>
         <div class="swiper-container thm-swiper__slider" data-swiper-options='{"slidesPerView": 1, "loop": true,
-            "effect": "fade",
-             "pagination": {
-                "el": "#main-slider-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-            "navigation": {
-                "nextEl": "#main-slider__swiper-button-next",
-                "prevEl": "#main-slider__swiper-button-prev"
-            },
-            "autoplay": {
-                "delay": 5000
-            }}'>
+                    "effect": "fade",
+                     "pagination": {
+                        "el": "#main-slider-pagination",
+                        "type": "bullets",
+                        "clickable": true
+                      },
+                    "navigation": {
+                        "nextEl": "#main-slider__swiper-button-next",
+                        "prevEl": "#main-slider__swiper-button-prev"
+                    },
+                    "autoplay": {
+                        "delay": 5000
+                    }}'>
             <div class="swiper-wrapper">
                 @php
                     $heroSlides = [];
@@ -199,11 +199,27 @@
 
     <!--Cause One End-->
     <style>
+        .causes-one .owl-stage {
+            display: flex;
+        }
+
+        .causes-one .owl-item {
+            display: flex;
+            flex: 1 0 auto;
+        }
+
         .causes-one .causes-one__single {
             display: flex;
             flex-direction: column;
+            width: 100%;
             height: 100%;
             background: #fff;
+        }
+
+        .causes-one .causes-one__img img {
+            height: 250px;
+            object-fit: cover;
+            width: 100%;
         }
 
         .causes-one .causes-one__content-box {
@@ -251,10 +267,12 @@
                                 <div class="causes-one__content-box">
                                     <div class="causes-one__content">
                                         <h3 class="causes-one__title">
-                                            <a href="{{ route('campaigns.index') . '#' . Str::slug($camp->title) }}">{{ $camp->title ?? '' }}</a>
+                                            <a
+                                                href="{{ route('campaigns.index') . '#' . Str::slug($camp->title) }}">{{ $camp->title ?? '' }}</a>
                                         </h3>
                                         <p class="causes-one__text">{{ Str::limit($camp->description ?? '', 120) }}
-                                            <a href="{{ route('campaigns.index') . '#' . Str::slug($camp->title) }}">...Read More...</a>
+                                            <a href="{{ route('campaigns.index') . '#' . Str::slug($camp->title) }}">...Read
+                                                More...</a>
                                         </p>
                                     </div>
                                 </div>
@@ -286,7 +304,7 @@
                             </a>
                             <br />
                             <a href="mailto:peersupport@yourewonderfulproject.org" class="donate-btn" target="_blank"> <i
-                                    class="fa fa-heart"></i> Get Support</a>
+                                    class="fa fa-heart"></i> Give Support</a>
                         </div>
                     </div>
                 </div>
@@ -302,7 +320,7 @@
                         <div class="two-boxes__content">
                             <h3 class="two-boxes__title">Raise mental health awareness</h3>
                             <a href="mailto:peersupport@yourewonderfulproject.org" class="donate-btn" target="_blank"> <i
-                                    class="fa fa-heart"></i> Get Support</a>
+                                    class="fa fa-heart"></i> Give Support</a>
                         </div>
                     </div>
                 </div>
@@ -460,25 +478,43 @@
                     <h2 class="section-title__title">Policies</h2>
                 </center><br><br>
                 <div class="col-xl-12 col-xxl-12">
-                    <div class="featured-campaigns__single">
-                        <div class="featured-campaigns__content">
-                            <h3 class="featured-campaigns__title">View &amp; Download</h3>
-                            <div class="events__single">
-                                <h3 class="events__title"><a
-                                        href="https://drive.google.com/file/d/1jaaviNQrMLbNfR_hbks21NcAhkhUqwL6/view"
-                                        target="_blank">Breaks and Sabbaticals|YWP;</a></h3>
-                                <ul class="list-unstyled events__meta">
-                                    <p class="featured-campaigns__text">
-                                        .&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </p>
-                                </ul>
-                            </div>
+                    @if(isset($policies) && $policies->count() > 0)
+                        <div class="featured-campaigns__carousel owl-theme owl-carousel">
+                            @foreach($policies as $policy)
+                                <div class="featured-campaigns__single">
+                                    <div class="featured-campaigns__content">
+                                        <h3 class="featured-campaigns__title">View &amp; Download</h3>
+                                        <div class="events__single">
+                                            <h3 class="events__title"><a
+                                                    href="{{ $policy->link }}"
+                                                    target="_blank">{{ $policy->title }}</a></h3>
+                                            <ul class="list-unstyled events__meta">
+                                                @if($policy->description)
+                                                    <p class="featured-campaigns__text">
+                                                        {{ $policy->description }}
+                                                    </p>
+                                                @else
+                                                    <p class="featured-campaigns__text">
+                                                        &nbsp;
+                                                    </p>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="featured-campaigns__img" style="background-color:#ebd2d2;">
+                                        @if($policy->image)
+                                            <img src="{{ asset($policy->image) }}" alt="{{ $policy->title }}" style="height: 470px; object-fit: cover; width: 100%;">
+                                        @else
+                                            <img src="{{ asset('images/gallery/paper/44-449352_checklist-checklist-png.png') }}" alt=""
+                                                style="height: 470px; object-fit: cover; width: 100%;">
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                        <div class="featured-campaigns__img" style="background-color:#ebd2d2;">
-                            <img src="{{ asset('images/gallery/paper/44-449352_checklist-checklist-png.png') }}" alt=""
-                                style="height: 470px;">
-                        </div>
-                    </div>
+                    @else
+                        <p class="text-center">No policies found.</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -493,9 +529,9 @@
 
                 @php
                     $faqs = [];
-                    if(isset($contents['faq'])) {
-                        foreach($contents['faq'] as $key => $value) {
-                            if(preg_match('/faq(\d+)_(\w+)/', $key, $matches)) {
+                    if (isset($contents['faq'])) {
+                        foreach ($contents['faq'] as $key => $value) {
+                            if (preg_match('/faq(\d+)_(\w+)/', $key, $matches)) {
                                 $faqs[$matches[1]][$matches[2]] = $value;
                             }
                         }

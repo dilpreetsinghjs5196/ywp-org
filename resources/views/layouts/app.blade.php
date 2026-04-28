@@ -257,7 +257,7 @@
                                             style="line-height: 40px !important; margin: 0 !important; font-size: 18px !important;"></i>
                                     </div>
                                     <span class="support-text"
-                                        style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px; padding-right: 10px;">GET
+                                        style="font-weight: 700; font-size: 13px; letter-spacing: 0.5px; padding-right: 10px;">GIVE
                                         SUPPORT</span>
                                 </a>
                             </div>

@@ -25,8 +25,9 @@ class HomeController extends Controller
             });
 
         $campaigns = Campaign::all();
+        $policies = Policy::orderBy('order')->get();
 
-        return view('home', compact('contents', 'campaigns'));
+        return view('home', compact('contents', 'campaigns', 'policies'));
     }
 
     public function ourMission()
