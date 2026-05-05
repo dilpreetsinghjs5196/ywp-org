@@ -145,6 +145,11 @@
         letter-spacing: 0.5px;
     }
 
+    .required-star {
+        color: #ff4c1e;
+        margin-left: 2px;
+    }
+
     .form-control {
         padding: 15px;
         border-radius: 12px;
@@ -252,15 +257,15 @@
                             <!-- Donor Details -->
                             <div class="row">
                                 <div class="col-md-12 form-group mb-3">
-                                    <label>Full Name</label>
+                                    <label>Full Name <span class="required-star">*</span></label>
                                     <input type="text" name="name" class="form-control" placeholder="John Doe" required>
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>Email Address</label>
+                                    <label>Email Address <span class="required-star">*</span></label>
                                     <input type="email" name="email" class="form-control" placeholder="john@example.com" required>
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>Contact Number</label>
+                                    <label>Contact Number <span class="required-star">*</span></label>
                                     <input type="text" name="mobile" class="form-control" placeholder="98XXXXXXXX" required>
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
@@ -268,8 +273,8 @@
                                     <input type="text" name="referred_by" class="form-control" placeholder="Friend, Social Media, etc.">
                                 </div>
                                 <div class="col-md-6 form-group mb-3">
-                                    <label>PAN Number (Optional for 80G)</label>
-                                    <input type="text" name="pan" class="form-control" placeholder="ABCDE1234F">
+                                    <label>PAN Number <span class="required-star">*</span></label>
+                                    <input type="text" name="pan" class="form-control" placeholder="ABCDE1234F" required>
                                 </div>
                                 <div class="col-md-12 form-group mb-3">
                                     <label>Residential Address</label>

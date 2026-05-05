@@ -22,6 +22,11 @@
                         <input type="password" name="razorpay_secret" class="form-control"
                             value="{{ $settings['razorpay_secret'] ?? '' }}" placeholder="••••••••••••••">
                     </div>
+                    <div class="mb-3">
+                        <a href="{{ route('admin.settings.test-razorpay') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-plug"></i> Test Connection
+                        </a>
+                    </div>
                     <small class="text-muted d-block mt-2">
                         <i class="fa fa-info-circle"></i> These keys are used to fetch donor information from Razorpay.
                     </small>

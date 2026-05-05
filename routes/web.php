@@ -66,6 +66,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('/subscriptions/cancel/{id}', [AdminDonationController::class, 'cancelSubscription'])->name('subscriptions.cancel');
     Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::post('/settings/update', [AdminSettingController::class, 'update'])->name('settings.update');
+    Route::get('/settings/test-razorpay', [AdminSettingController::class, 'testRazorpay'])->name('settings.test-razorpay');
 
     Route::get('/campaigns/delete-image/{id}', [AdminCampaignController::class, 'deleteImage'])->name('campaigns.delete-image');
     Route::resource('campaigns', AdminCampaignController::class);

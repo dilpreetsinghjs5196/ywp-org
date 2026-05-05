@@ -185,7 +185,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="https://pledge.yourewonderfulproject.org/" class="mobile-donate-btn" target="_blank">
+                    <a href="{{ route('donate', ['type' => 'monthly']) }}" class="mobile-donate-btn" target="_blank">
                         <i class="fa fa-heart"></i> Donate Now
                     </a>
                     <div class="main-menu-wrapper__main-menu">

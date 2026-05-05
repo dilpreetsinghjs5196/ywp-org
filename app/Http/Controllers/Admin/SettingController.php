@@ -18,7 +18,7 @@ class SettingController extends Controller
     {
         $data = $request->except('_token');
         foreach ($data as $key => $value) {
-            Setting::updateOrCreate(['key' => $key], ['value' => $value]);
+            Setting::updateOrCreate(['key' => $key], ['value' => trim($value)]);
         }
         return back()->with('success', 'Settings updated successfully!');
     }
@@ -57,6 +57,25 @@ class SettingController extends Controller
             return back()->with('success', 'Test email sent successfully to ' . $testTarget);
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to send test email: ' . $e->getMessage());
+        }
+    }
+
+    public function testRazorpay()
+    {
+        $keyId = trim(Setting::where('key', 'razorpay_key')->value('value') ?? '');
+        $keySecret = trim(Setting::where('key', 'razorpay_secret')->value('value') ?? '');
+
+        if (!$keyId || !$keySecret) {
+            return back()->with('error', 'Razorpay keys not configured.');
+        }
+
+        try {
+            $api = new \Razorpay\Api\Api($keyId, $keySecret);
+            // Try to fetch something simple to test authentication
+            $api->payment->all(['count' => 1]);
+            return back()->with('success', 'Razorpay Connection Successful! Your keys are valid.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Razorpay Connection Failed: ' . $e->getMessage());
         }
     }
 }

@@ -26,8 +26,8 @@ class DonationController extends Controller
      */
     private function getApi()
     {
-        $keyId = Setting::where('key', 'razorpay_key')->value('value');
-        $keySecret = Setting::where('key', 'razorpay_secret')->value('value');
+        $keyId = trim(Setting::where('key', 'razorpay_key')->value('value') ?? '');
+        $keySecret = trim(Setting::where('key', 'razorpay_secret')->value('value') ?? '');
         
         if (!$keyId || !$keySecret) return null;
         
@@ -43,6 +43,15 @@ class DonationController extends Controller
         if (!$api) {
             return response()->json(['error' => 'Razorpay API keys not configured.'], 500);
         }
+
+        $request->validate([
+            'amount' => 'required|numeric|min:1',
+            'type'   => 'required|in:one_time,monthly',
+            'name'   => 'required|string|max:255',
+            'email'  => 'required|email|max:255',
+            'mobile' => 'required|string|max:20',
+            'pan'    => 'required|string|max:15',
+        ]);
 
         $amount = $request->amount;
         $type = $request->type; // one_time or monthly
@@ -96,7 +105,7 @@ class DonationController extends Controller
 
                 return response()->json([
                     'subscription_id' => $subscription->id,
-                    'razorpay_key' => Setting::where('key', 'razorpay_key')->value('value'),
+                    'razorpay_key' => trim(Setting::where('key', 'razorpay_key')->value('value') ?? ''),
                     'amount' => $amount * 100,
                     'currency' => 'INR',
                     'description' => $planName,
@@ -138,7 +147,7 @@ class DonationController extends Controller
 
                 return response()->json([
                     'order_id' => $order->id,
-                    'razorpay_key' => Setting::where('key', 'razorpay_key')->value('value'),
+                    'razorpay_key' => trim(Setting::where('key', 'razorpay_key')->value('value') ?? ''),
                     'amount' => $amount * 100,
                     'currency' => 'INR',
                     'description' => 'One-time donation to YWP;',

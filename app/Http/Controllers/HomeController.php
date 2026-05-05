@@ -107,27 +107,61 @@ class HomeController extends Controller
     /**
      * Display Newsletters
      */
-    public function newsletters()
+    public function newsletters(Request $request)
     {
-        $newsletters = Newsletter::orderBy('year', 'desc')->orderBy('order', 'asc')->get();
+        $query = Newsletter::query();
+
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        }
+
+        $newsletters = $query->orderBy('year', 'desc')->orderBy('order', 'asc')->paginate(10);
         return view('newsletters', compact('newsletters'));
     }
 
-    public function reports()
+    public function reports(Request $request)
     {
-        $reports = AnnualReport::orderBy('order')->get();
+        $query = AnnualReport::query();
+
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        }
+
+        $reports = $query->orderBy('order')->paginate(10);
         return view('reports', compact('reports'));
     }
 
-    public function policies()
+    public function policies(Request $request)
     {
-        $policies = Policy::orderBy('order')->get();
+        $query = Policy::query();
+
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        }
+
+        $policies = $query->orderBy('order')->paginate(10);
         return view('policies', compact('policies'));
     }
 
-    public function researchPapers()
+    public function researchPapers(Request $request)
     {
-        $reports = Report::orderBy('order')->get();
+        $query = Report::query();
+
+        if ($request->filled('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $reports = $query->orderBy('order')->paginate(10);
         return view('research-papers', compact('reports'));
     }
 }

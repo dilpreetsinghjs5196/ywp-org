@@ -81,8 +81,8 @@ class DonationController extends Controller
     }
     private function getRazorpayApi()
     {
-        $keyId = Setting::where('key', 'razorpay_key')->value('value');
-        $keySecret = Setting::where('key', 'razorpay_secret')->value('value');
+        $keyId = trim(Setting::where('key', 'razorpay_key')->value('value') ?? '');
+        $keySecret = trim(Setting::where('key', 'razorpay_secret')->value('value') ?? '');
 
         if (!$keyId || !$keySecret) {
             return null;
