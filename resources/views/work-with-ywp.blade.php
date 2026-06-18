@@ -2,6 +2,35 @@
 
 @section('title', $contents['header']['title'] ?? 'Work with YWP')
 
+@push('styles')
+<style>
+    @media (max-width: 767px) {
+        .page-header {
+            padding: 60px 0 50px !important;
+        }
+        .page-header__inner h2 {
+            font-size: 28px !important;
+            letter-spacing: -1px;
+        }
+        .become-volunteer {
+            padding: 50px 0 50px !important;
+        }
+        .become-volunteer__right {
+            margin-top: 25px !important;
+        }
+        .become-volunteer__images .row {
+            margin-bottom: 15px;
+        }
+        .become-volunteer__img-single img {
+            border-radius: 12px;
+        }
+        .become-volunteer__content {
+            margin-top: 20px;
+        }
+    }
+</style>
+@endpush
+
 @section('content')
     <!--Page Header Start-->
     <section class="page-header">
