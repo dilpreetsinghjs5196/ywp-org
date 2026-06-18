@@ -27,6 +27,12 @@
         .become-volunteer__content {
             margin-top: 20px;
         }
+        .become-volunteer__img-single {
+            margin-bottom: 10px !important;
+        }
+        .become-volunteer__images {
+            margin-bottom: 10px !important;
+        }
     }
 </style>
 @endpush
