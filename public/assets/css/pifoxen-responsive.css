@@ -546,6 +546,7 @@
         flex: 0 0 100%;
         max-width: 100%;
         padding: 0 30px 0;
+        margin-bottom: 10px !important;
     }
 
     .we-believe__single::before {
@@ -567,7 +568,7 @@
 
     .welcome-one__right {
         margin-left: 0;
-        margin-top: 50px;
+        margin-top: 20px;
     }
 
     .welcome-one__btn-box {
@@ -1571,7 +1572,7 @@
 
     /* Mobile Spacing Fixes */
     .we-believe {
-        padding: 50px 0 50px !important;
+        padding: 50px 0 30px !important;
     }
     .welcome-one {
         padding: 0 0 50px !important;
