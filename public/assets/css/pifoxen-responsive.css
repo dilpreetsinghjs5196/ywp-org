@@ -1569,9 +1569,26 @@
         float: right;
     }
 
-
-
-
-
-
+    /* Mobile Spacing Fixes */
+    .we-believe {
+        padding: 50px 0 50px !important;
+    }
+    .welcome-one {
+        padding: 0 0 50px !important;
+    }
+    .causes-one {
+        padding: 50px 0 50px !important;
+    }
+    .two-boxes {
+        padding: 0 0 50px !important;
+    }
+    .fundraishing {
+        padding: 50px 0 50px !important;
+    }
+    .featured-campaigns {
+        padding: 0 0 50px !important;
+    }
+    .paq-page {
+        padding: 50px 0 50px !important;
+    }
 }

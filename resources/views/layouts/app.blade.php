@@ -136,9 +136,27 @@
                 }
             }
         }
+
+        $resp_css_ver = '1.0.3';
+        $resp_css_file = public_path('assets/css/pifoxen-responsive.css');
+        if (file_exists($resp_css_file)) {
+            $resp_css_ver = filemtime($resp_css_file);
+        } else {
+            $alternative_paths = [
+                base_path('../public_html/assets/css/pifoxen-responsive.css'),
+                base_path('public_html/assets/css/pifoxen-responsive.css'),
+                isset($_SERVER['DOCUMENT_ROOT']) ? ($_SERVER['DOCUMENT_ROOT'] . '/assets/css/pifoxen-responsive.css') : ''
+            ];
+            foreach ($alternative_paths as $path) {
+                if ($path && file_exists($path)) {
+                    $resp_css_ver = filemtime($path);
+                    break;
+                }
+            }
+        }
     @endphp
     <link rel="stylesheet" href="{{ asset('assets/css/pifoxen.css') }}?v={{ $css_ver }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen-responsive.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen-responsive.css') }}?v={{ $resp_css_ver }}" />
 
     @stack('styles')
 </head>
