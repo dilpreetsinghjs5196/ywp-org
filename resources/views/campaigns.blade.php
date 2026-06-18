@@ -163,6 +163,44 @@
         .campaign-title { font-size: 36px; }
         .page-header__inner h2 { font-size: 48px; }
     }
+
+    @media (max-width: 767px) {
+        .page-header {
+            padding: 60px 0 50px;
+        }
+        .page-header__inner h2 {
+            font-size: 28px;
+            letter-spacing: -1px;
+        }
+        .campaign-card {
+            padding: 25px 0;
+        }
+        .campaign-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .campaign-content {
+            margin-top: 20px !important;
+        }
+        .campaign-swiper {
+            margin-bottom: 20px;
+            padding-bottom: 35px !important;
+        }
+        .campaign-swiper .swiper-slide {
+            height: 220px;
+        }
+        .campaign-description {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .category-tag {
+            margin-bottom: 10px;
+        }
+        .campaigns-page .container > .mb-5,
+        .campaign-card .mb-5 {
+            margin-bottom: 15px !important;
+        }
+    }
 </style>
 @endpush
 
