@@ -1594,4 +1594,11 @@
     .counter-one {
         margin-top: 0px !important;
     }
+    .welcome-one__right .section-title {
+        margin-bottom: 15px !important;
+    }
+    .welcome-one__text-2 {
+        padding-top: 15px !important;
+        padding-bottom: 25px !important;
+    }
 }
