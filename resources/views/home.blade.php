@@ -41,7 +41,7 @@
 
                 @foreach($heroSlides as $index => $slide)
                     <div class="swiper-slide">
-                        <div class="image-layer"
+                        <div class="image-layer slide-image-{{ $index }}"
                             style="background-image: url({{ asset($slide['image'] ?? 'images/slider-main-1.jpg') }});">
                         </div>
                         <!-- /.image-layer -->

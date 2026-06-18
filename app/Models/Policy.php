@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Policy extends Model
 {
-    protected $fillable = ['title', 'description', 'image', 'link', 'order'];
+    protected $fillable = ['title', 'description', 'image', 'link', 'document', 'order'];
 }

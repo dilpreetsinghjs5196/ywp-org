@@ -265,10 +265,10 @@
                                     <p class="featured-campaigns__text" style="flex-grow: 1; margin-bottom: 20px;">{{ $policy->description }}</p>
                                 @endif
 
-                                @if($policy->link)
+                                @if($policy->document || $policy->link)
                                     <div class="events__single" style="margin-top: auto;">
                                         <h3 class="events__title" style="margin:0;">
-                                            <a href="{{ $policy->link }}" target="_blank" style="color: var(--pifoxen-base); font-size: 18px; font-weight: 700;">View & Download >></a>
+                                            <a href="{{ $policy->document ? asset($policy->document) : $policy->link }}" target="_blank" style="color: var(--pifoxen-base); font-size: 18px; font-weight: 700;">View & Download >></a>
                                         </h3>
                                     </div>
                                 @endif

@@ -54,10 +54,29 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <label class="form-label text-muted small">Document Link</label>
+                        <label class="form-label text-muted small">Document Link (Google Drive / Doc)</label>
                         <input type="text" name="link" class="form-control" value="{{ $policy->link }}">
                     </div>
                     <div class="col-md-6 mb-4">
+                        <label class="form-label text-muted small">Update Document (Direct Upload)</label>
+                        <input type="file" name="document" class="form-control">
+                        @if($policy->document)
+                            <div class="mt-2 small">
+                                <a href="{{ asset($policy->document) }}" target="_blank" class="text-primary">
+                                    <i class="fa fa-file-pdf"></i> View Current Document
+                                </a>
+                                <div class="form-check mt-1">
+                                    <input class="form-check-input" type="checkbox" name="remove_document" id="removeDocument">
+                                    <label class="form-check-label text-danger" for="removeDocument">
+                                        Remove current document
+                                    </label>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-4">
                         <label class="form-label text-muted small">Display Order</label>
                         <input type="number" name="order" class="form-control" value="{{ $policy->order }}">
                     </div>

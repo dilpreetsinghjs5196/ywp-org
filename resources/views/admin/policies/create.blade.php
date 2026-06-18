@@ -41,6 +41,12 @@
                         <input type="text" name="link" class="form-control" placeholder="https://drive.google.com/...">
                     </div>
                     <div class="col-md-6 mb-4">
+                        <label class="form-label text-muted small">Direct Upload Document (PDF/Doc)</label>
+                        <input type="file" name="document" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mb-4">
                         <label class="form-label text-muted small">Display Order</label>
                         <input type="number" name="order" class="form-control" value="0">
                     </div>

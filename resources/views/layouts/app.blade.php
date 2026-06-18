@@ -118,7 +118,26 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/timePicker.css') }}" />
 
     <!-- template styles -->
-    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen.css') }}" />
+    @php
+        $css_ver = '1.0.3';
+        $css_file = public_path('assets/css/pifoxen.css');
+        if (file_exists($css_file)) {
+            $css_ver = filemtime($css_file);
+        } else {
+            $alternative_paths = [
+                base_path('../public_html/assets/css/pifoxen.css'),
+                base_path('public_html/assets/css/pifoxen.css'),
+                isset($_SERVER['DOCUMENT_ROOT']) ? ($_SERVER['DOCUMENT_ROOT'] . '/assets/css/pifoxen.css') : ''
+            ];
+            foreach ($alternative_paths as $path) {
+                if ($path && file_exists($path)) {
+                    $css_ver = filemtime($path);
+                    break;
+                }
+            }
+        }
+    @endphp
+    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen.css') }}?v={{ $css_ver }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/pifoxen-responsive.css') }}" />
 
     @stack('styles')
