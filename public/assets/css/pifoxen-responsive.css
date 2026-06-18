@@ -1591,4 +1591,7 @@
     .paq-page {
         padding: 50px 0 50px !important;
     }
+    .counter-one {
+        margin-top: 0px !important;
+    }
 }
