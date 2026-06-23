@@ -118,45 +118,8 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/timepicker/timePicker.css') }}" />
 
     <!-- template styles -->
-    @php
-        $css_ver = '1.0.3';
-        $css_file = public_path('assets/css/pifoxen.css');
-        if (file_exists($css_file)) {
-            $css_ver = filemtime($css_file);
-        } else {
-            $alternative_paths = [
-                base_path('../public_html/assets/css/pifoxen.css'),
-                base_path('public_html/assets/css/pifoxen.css'),
-                isset($_SERVER['DOCUMENT_ROOT']) ? ($_SERVER['DOCUMENT_ROOT'] . '/assets/css/pifoxen.css') : ''
-            ];
-            foreach ($alternative_paths as $path) {
-                if ($path && file_exists($path)) {
-                    $css_ver = filemtime($path);
-                    break;
-                }
-            }
-        }
-
-        $resp_css_ver = '1.0.3';
-        $resp_css_file = public_path('assets/css/pifoxen-responsive.css');
-        if (file_exists($resp_css_file)) {
-            $resp_css_ver = filemtime($resp_css_file);
-        } else {
-            $alternative_paths = [
-                base_path('../public_html/assets/css/pifoxen-responsive.css'),
-                base_path('public_html/assets/css/pifoxen-responsive.css'),
-                isset($_SERVER['DOCUMENT_ROOT']) ? ($_SERVER['DOCUMENT_ROOT'] . '/assets/css/pifoxen-responsive.css') : ''
-            ];
-            foreach ($alternative_paths as $path) {
-                if ($path && file_exists($path)) {
-                    $resp_css_ver = filemtime($path);
-                    break;
-                }
-            }
-        }
-    @endphp
-    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen.css') }}?v={{ $css_ver }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen-responsive.css') }}?v={{ $resp_css_ver }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pifoxen-responsive.css') }}" />
 
     @stack('styles')
 </head>
@@ -260,8 +223,8 @@
                                 <a href="#">Initiatives</a>
                                 <ul>
                                     <li><a href="{{ url('campaigns') }}">Campaigns</a></li>
-                                    <li><a href="{{ url('events') }}">Events</a></li>
-                                    <li><a href="{{ url('training') }}">Trainings</a></li>
+                                    <!--<li><a href="{{ url('events') }}">Events</a></li>-->
+                                    <!--<li><a href="{{ url('training') }}">Trainings</a></li>-->
                                 </ul>
                             </li>
                             <li class="dropdown {{ Request::is('blog*') ? 'current' : '' }}">
@@ -272,7 +235,7 @@
                                 <a href="#">Connect</a>
                                 <ul>
                                     <li><a href="{{ url('work-with-ywp') }}">Work with YWP</a></li>
-                                    <li><a href="{{ url('contact') }}">Contact Us</a></li>
+                                    <!--<li><a href="{{ url('contact') }}">Contact Us</a></li>-->
                                 </ul>
                             </li>
                             <li class="dropdown {{ Request::is('donate') ? 'current' : '' }}">
@@ -281,9 +244,9 @@
                                     {{-- <li><a href="{{ route('donate', ['type' => 'one_time']) }}">One-time
                                             Donation</a></li> --}}
                                     <li><a href="{{ route('donate', ['type' => 'monthly']) }}">Donate Now</a></li>
-                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSci9fU6H6YvNqS36_t6I8S538l5p2q4G5t3T8-S56Z7S-2lQ/viewform"
-                                            target="_blank">Pledge for
-                                            YWP</a></li>
+                                    <!--<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSci9fU6H6YvNqS36_t6I8S538l5p2q4G5t3T8-S56Z7S-2lQ/viewform"-->
+                                    <!--        target="_blank">Pledge for-->
+                                    <!--        YWP</a></li>-->
                                 </ul>
                             </li>
                             {{-- <li class="dropdown {{ Request::is('wonderstore') ? 'current' : '' }}">
@@ -351,7 +314,7 @@
                             <div class="footer-widget__column footer-widget__non-profit clearfix">
                                 <h3 class="footer-widget__title">Information</h3>
                                 <ul class="footer-widget__non-profit-list list-unstyled clearfix">
-                                    <li><a href="{{ url('team') }}">Team</a></li>
+                                    <!--<li><a href="{{ url('team') }}">Team</a></li>-->
                                     <li><a href="{{ url('campaigns') }}">Campaigns</a></li>
                                     <li><a href="{{ url('blog') }}">Blog</a></li>
                                     <li><a href="{{ url('work-with-ywp') }}">Work with YWP</a></li>
@@ -364,7 +327,7 @@
                                 <ul class="footer-widget__non-profit-list list-unstyled clearfix">
                                     <li><a href="{{ url('gallery') }}">Gallery</a></li>
                                     <li><a href="{{ url('faq') }}">FAQs</a></li>
-                                    <li><a href="{{ url('contact') }}">Connect</a></li>
+                                    <!--<li><a href="{{ url('contact') }}">Connect</a></li>-->
                                 </ul>
                             </div>
                         </div>
@@ -382,7 +345,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="icon" style="padding-top:10px;">
+                                        <div class="icon" style="">
                                             <span class="icon-telephone"></span>
                                         </div>
                                         <div class="text">

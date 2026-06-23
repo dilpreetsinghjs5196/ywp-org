@@ -27,7 +27,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{{ route('admin.page-content.index', ['group' => $group]) }}" style="color: var(--accent-orange);">
-                            {{ $group === 'about' ? 'About Pages' : 'Home Content' }}
+                            {{ $group === 'about' ? 'About Pages' : ($group === 'recruitment_content' ? 'Recruitment Page' : 'Home Content') }}
                         </a>
                     </li>
                     <li class="breadcrumb-item text-capitalize" style="color: var(--text-muted);">{{ str_replace('_', ' ', $section) }}</li>

@@ -433,8 +433,6 @@
     </section>
     <!--Counter One End-->
 
-    <br /><br />
-
     <section class="featured-campaigns">
         <div class="container">
             <br>

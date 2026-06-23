@@ -12,26 +12,24 @@
             font-size: 28px !important;
             letter-spacing: -1px;
         }
-        .become-volunteer {
-            padding: 50px 0 50px !important;
-        }
-        .become-volunteer__right {
-            margin-top: 25px !important;
-        }
+        /*.become-volunteer {*/
+        /*    padding: 50px 0 50px !important;*/
+        /*}*/
+        /*.become-volunteer__right {*/
+        /*    margin-top: 25px !important;*/
+        /*}*/
         .become-volunteer__images .row {
             margin-bottom: 15px;
         }
         .become-volunteer__img-single img {
             border-radius: 12px;
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            object-position: center;
         }
         .become-volunteer__content {
             margin-top: 20px;
-        }
-        .become-volunteer__img-single {
-            margin-bottom: 10px !important;
-        }
-        .become-volunteer__images {
-            margin-bottom: 10px !important;
         }
     }
 </style>
@@ -59,74 +57,65 @@
     <section class="become-volunteer">
         <div class="container">
             <div class="row">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="become-volunteer__Left">
-                        <div class="become-volunteer__images">
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                    <div class="become-volunteer__img-single">
-                                        <img src="{{ asset('images/slider-main-3.jpg') }}" alt="">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6">
-                                    <div class="become-volunteer__img-single">
-                                        <img src="{{ asset('images/welcome-one-small-img.jpg') }}" alt="">
-                                    </div>
+                <!-- Left Column: Images, Intro, HR Info -->
+                <div class="col-xl-5 col-lg-5 mb-5 mb-lg-0">
+                    <div class="become-volunteer__images mb-4">
+                        <div class="row">
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="become-volunteer__img-single">
+                                    <img src="{{ asset('images/slider-main-3.jpg') }}" alt="">
                                 </div>
                             </div>
-                        </div>
-                        <div class="become-volunteer__content">
-                            <p class="contact-page__text">{{ $contents['recruitment_process']['intro'] ?? '' }}</p><br />
-                            <p class="contact-page__text">{{ $contents['recruitment_process']['round_1'] ?? '' }}</p>
-                            <p class="contact-page__text">{{ $contents['recruitment_process']['round_2'] ?? '' }}</p>
-                            <p class="contact-page__text">{{ $contents['recruitment_process']['round_3'] ?? '' }}</p>
-                            <p class="contact-page__text">{{ $contents['recruitment_process']['round_4'] ?? '' }}</p><br />
-                            <p class="contact-page__text">{{ $contents['recruitment_process']['footer_note'] ?? '' }}</p>
-                            <div class="contact-page__social">
-                                @php
-                                    $settings = \App\Models\Setting::first();
-                                @endphp
-                                @if($settings)
-                                    <a href="{{ $settings->twitter_link }}" target="_blank"><i class="fab fa-twitter"></i></a>
-                                    <a href="{{ $settings->facebook_link }}" target="_blank"><i class="fab fa-facebook"></i></a>
-                                    <a href="{{ $settings->instagram_link }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                                    <a href="{{ $settings->linkedin_link }}" target="_blank"><i class="fab fa-linkedin"></i></a>
-                                @endif
-                            </div>
-                            <div class="become-volunteer__contact">
-                                <p>
-                                    @if($settings)
-                                        <a href="tel:{{ $settings->contact_phone }}" class="become-volunteer__phone">{{ $settings->contact_phone }}</a>
-                                        <a href="mailto:{{ $settings->contact_email }}" class="become-volunteer__email">{{ $settings->contact_email }}</a>
-                                    @endif
-                                </p>
+                            <div class="col-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="become-volunteer__img-single">
+                                    <img src="{{ asset('images/welcome-one-small-img.jpg') }}" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-6 col-lg-6">
-                    <div class="become-volunteer__right">
-                        <div class="contact-page__left">
-                            <div class="section-title text-left">
-                                <span class="section-title__tagline">{{ $contents['form_content']['tagline'] ?? 'Work with us' }}</span>
-                                <h2 class="section-title__title">{{ $contents['form_content']['title'] ?? 'Recruitment Form' }}</h2>
-                            </div>
-                            <p class="contact-page__text">{{ $contents['form_content']['description_1'] ?? '' }}</p>
-                            <br />
-                            <p class="contact-page__text">{{ $contents['form_content']['description_2'] ?? '' }}</p>
+                    
+                    <div class="contact-page__left mb-5">
+                        <div class="section-title text-left">
+                            <span class="section-title__tagline">{{ $contents['form_content']['tagline'] ?? 'Work with us' }}</span>
+                            <h2 class="section-title__title">{{ $contents['form_content']['title'] ?? 'Recruitment Form' }}</h2>
                         </div>
+                        <p class="contact-page__text">{{ $contents['form_content']['description_1'] ?? '' }}</p>
+                        <br />
+                        <p class="contact-page__text">{{ $contents['form_content']['description_2'] ?? '' }}</p>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--Become Volunteer End-->
 
-    <!--Contact Page Start-->
-    <section class="">
-        <div class="container">
-            <div class="row" style="margin:auto !important;">
-                <div class="col-xl-8 col-lg-7">
+                    <div class="become-volunteer__content mt-0">
+                        <p class="contact-page__text">{{ $contents['recruitment_process']['intro'] ?? '' }}</p><br />
+                        <p class="contact-page__text">{{ $contents['recruitment_process']['round_1'] ?? '' }}</p>
+                        <p class="contact-page__text">{{ $contents['recruitment_process']['round_2'] ?? '' }}</p>
+                        <p class="contact-page__text">{{ $contents['recruitment_process']['round_3'] ?? '' }}</p>
+                        <p class="contact-page__text">{{ $contents['recruitment_process']['round_4'] ?? '' }}</p><br />
+                        <p class="contact-page__text">{{ $contents['recruitment_process']['footer_note'] ?? '' }}</p>
+                        
+                        <div class="contact-page__social mt-4">
+                            @php
+                                $settings = \App\Models\Setting::first();
+                            @endphp
+                            @if($settings)
+                                <a href="{{ $settings->twitter_link }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a href="{{ $settings->facebook_link }}" target="_blank"><i class="fab fa-facebook"></i></a>
+                                <a href="{{ $settings->instagram_link }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a href="{{ $settings->linkedin_link }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            @endif
+                        </div>
+                        <div class="become-volunteer__contact">
+                            <p>
+                                @if($settings)
+                                    <a href="tel:{{ $settings->contact_phone }}" class="become-volunteer__phone">{{ $settings->contact_phone }}</a>
+                                    <a href="mailto:{{ $settings->contact_email }}" class="become-volunteer__email">{{ $settings->contact_email }}</a>
+                                @endif
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Form -->
+                <div class="col-xl-7 col-lg-7">
                     <div class="contact-page__right">
                         @if(session('success'))
                             <div class="alert alert-success">

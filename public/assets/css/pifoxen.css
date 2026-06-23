@@ -11007,7 +11007,7 @@ ul {
 .become-volunteer {
   position: relative;
   display: block;
-  padding: 120px 0 120px;
+  margin-top: 50px;
 }
 
 .become-volunteer__Left {
@@ -11023,7 +11023,6 @@ ul {
 .become-volunteer__img-single {
   position: relative;
   display: block;
-  margin-bottom: 30px;
 }
 
 .become-volunteer__img-single img {

@@ -494,11 +494,11 @@
     }
 
     .become-volunteer__right {
-        margin-top: 38px;
+        /*margin-top: 38px;*/
     }
 
     .contact-page__left {
-        margin-bottom: 50px;
+        /*margin-bottom: 50px;*/
     }
 
 
@@ -1041,7 +1041,7 @@
     }
 
     .become-volunteer__right {
-        margin-top: 38px;
+        /*margin-top: 38px;*/
     }
 
     .error-page__title {
@@ -1054,7 +1054,7 @@
     }
 
     .contact-page__left {
-        margin-bottom: 50px;
+        /*margin-bottom: 50px;*/
     }
 
 
@@ -1574,35 +1574,57 @@
     .we-believe {
         padding: 50px 0 0 !important;
     }
+
     .welcome-one {
         padding: 0 0 50px !important;
     }
+
     .causes-one {
         padding: 50px 0 50px !important;
     }
+
     .two-boxes {
         padding: 0 0 50px !important;
     }
+
     .fundraishing {
         padding: 50px 0 50px !important;
     }
+
     .featured-campaigns {
         padding: 0 0 50px !important;
     }
+
     .paq-page {
         padding: 50px 0 50px !important;
     }
+
     .counter-one {
         margin-top: 0px !important;
     }
+
     .welcome-one__right .section-title {
         margin-bottom: 15px !important;
     }
+
     .welcome-one__text-2 {
         padding-top: 15px !important;
         padding-bottom: 25px !important;
     }
+
     .site-footer__top {
         padding: 50px 0 50px !important;
+    }
+
+    .donations-details {
+        padding: 50px 0 50px !important;
+    }
+
+    .document-tabs {
+        margin-top: 40px;
+    }
+
+    .newsletters-page {
+        padding: 0 0 50px !important;
     }
 }
